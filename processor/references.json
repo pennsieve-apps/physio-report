@@ -2662,7 +2662,8 @@
     "stim-events",
     "ecg-hrv",
     "bp-resp",
-    "stim-dose-response"
+    "stim-dose-response",
+    "physio-report"
    ]
   },
   "10.26275/dm5l-tspb": {
@@ -2752,7 +2753,8 @@
    "source": "CITATION.cff",
    "cited_by": [
     "physio-import",
-    "ecg-hrv"
+    "ecg-hrv",
+    "physio-report"
    ]
   },
   "10.26275/qh3q-elj6": {

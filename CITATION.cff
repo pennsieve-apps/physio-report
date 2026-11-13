@@ -115,6 +115,47 @@ references:
     name: SPARC Portal
   version: '1'
 - type: data
+  title: Single-electrode bidirectional control of heart rate via vagus nerve modulation in rat model
+  authors:
+  - family-names: Bender
+    given-names: Shane A
+  - family-names: Green
+    given-names: David B
+  - family-names: Thakkar
+    given-names: Varun S
+  - family-names: Zimmerman
+    given-names: Hope L
+  - family-names: Elazab
+    given-names: Mohamed
+  - family-names: Kilgore
+    given-names: Kevin L
+  - family-names: Vrabec
+    given-names: Tina L
+  doi: 10.26275/5cwo-mkpz
+  year: 2026
+  publisher:
+    name: SPARC Portal
+  version: '1'
+- type: data
+  title: Best parameters of heart rate variability for assessing autonomic responses to brief rectal distention
+    in patients with irritable bowel syndrome
+  authors:
+  - family-names: Ali
+    given-names: M Khawar
+  - family-names: Gong
+    given-names: Shiyuan
+  - family-names: Nojkov
+    given-names: Borko
+  - family-names: Burnett
+    given-names: Colin
+  - family-names: Chen
+    given-names: Jiande D
+  doi: 10.26275/nung-b9bm
+  year: 2024
+  publisher:
+    name: SPARC Portal
+  version: '1'
+- type: data
   title: Fantasia Database
   authors:
   - family-names: Iyengar

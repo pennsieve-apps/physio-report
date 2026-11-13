@@ -12,9 +12,10 @@ Sandercock and David Brodie, 2010) and the age regression of Attila Kardos and c
 itself is rendered with [WeasyPrint](https://github.com/Kozea/WeasyPrint) (created by Simon Sapin, maintained by
 CourtBouillon), [Jinja](https://github.com/pallets/jinja) (Pallets) and
 [Pillow](https://github.com/python-pillow/Pillow) (Jeffrey A. Clark and contributors). **Pennsieve built the
-report; it did not develop the methods it reports on.** The demo reports were made from Pennsieve Discover dataset
-349 (Oliver Armitage and colleagues), the PhysioNet Fantasia Database (Nikhil Iyengar and colleagues) and the
-PhysioNet Autonomic Aging dataset (Andy Schumann and Karl-Jürgen Bär); see [Citations](#citations).
+report; it did not develop the methods it reports on.** The demo reports were made from Pennsieve Discover datasets
+349 (Oliver Armitage and colleagues), 655 (Shane A Bender and colleagues) and 406 (M Khawar Ali and colleagues), the
+PhysioNet Fantasia Database (Nikhil Iyengar and colleagues) and the PhysioNet Autonomic Aging dataset (Andy
+Schumann and Karl-Jürgen Bär); see [Citations](#citations).
 
 The last step of both physiology workflows:
 
@@ -146,20 +147,23 @@ Mac), read-only root, uid 65534, `--memory 2g`, `--network none`, with `scripts/
 
 | Input | Steps linked | Recordings | Figures shown | Wall time | Peak RSS | cgroup memory.peak | PDF |
 |---|---|---|---|---|---|---|---|
-| Discover 349 (stimulation workflow) | all five | 1 | 8 | 2.1 s | 130 MB | 123 MB | 0.8 MB, 19 pages |
-| Autonomic Aging (HRV workflow) | qc, hrv, bp | 3 | 15 | 2.1 s | 124 MB | 127 MB | 2.0 MB, 17 pages |
-| Fantasia (HRV workflow) | qc, hrv, bp | 6 | 28 | 2.9 s | 145 MB | 190 MB | 3.0 MB, 28 pages |
-| Synthetic fixture | all five | 3 | 16 | 2.1 s | 106 MB | 94 MB | 0.3 MB, 18 pages |
+| Discover 349 (stimulation workflow) | all five | 1 | 8 | 2.0 s | 129 MB | 121 MB | 0.7 MB, 17 pages |
+| Discover 655 (stimulation workflow) | all five | 3 | 16 | 2.1 s | 123 MB | 127 MB | 1.5 MB, 18 pages |
+| Autonomic Aging (HRV workflow) | qc, hrv, bp | 3 | 15 | 1.9 s | 126 MB | 130 MB | 1.5 MB, 17 pages |
+| Fantasia (HRV workflow) | qc, hrv, bp | 6 | 28 | 2.6 s | 145 MB | 187 MB | 3.1 MB, 28 pages |
+| Discover 406 (HRV workflow) | qc, hrv, bp | 20 | 60 | 3.6 s | 132 MB | 154 MB | 4.6 MB, 36 pages |
+| Synthetic fixture | all five | 3 | 16 | 1.6 s | 107 MB | 98 MB | 0.3 MB, 17 pages |
 
 Memory grows with the largest figure and the PDF's layout, not with the recordings: the report never opens an NWB
-file. Image: 297 MB, 71 MB compressed. Output size is dominated by the copied figures and tables (Fantasia: 46 MB,
+file. Wall time is the step's own (`provenance.json`); the container adds about half a second. Image: 297 MB, 71 MB
+compressed. Output size is dominated by the copied figures and tables (Fantasia: 46 MB,
 most of it ecg-hrv's beat-by-beat `beats.csv` and `series.csv` of six 2-hour recordings).
 
 ## Validation
 
 The report has no method of its own to validate; it was checked on the real outputs of the upstream apps for the
-three demos, against the apps' own summary.json, and on the synthetic fixture (`tests/`, 26 tests, the PDF test in
-the image):
+five demos (the three below, plus Discover 655 and 406), against the apps' own summary.json, and on the synthetic
+fixture (`tests/`, 26 tests, the PDF test in the image):
 
 - **Discover 349** (pig, 20 trains over 50–2500 µA x 2–30 Hz): one recording; physio-import, stim-events (20
   trains, amplitude and frequency varied), ecg-hrv (mean HR 71.25 bpm, SDNN 31.92 ms, device HR mean absolute
@@ -218,8 +222,8 @@ Apache-2.0 (this app). Bundled components and their licences are in [THIRD_PARTY
 MarkupSafe (BSD-3-Clause), WeasyPrint and its CourtBouillon libraries (BSD-3-Clause), Pillow (MIT-CMU), fontTools
 (MIT), Pyphen (code only, used under its MPL 1.1 option; its dictionaries are removed), and the Debian
 Pango/HarfBuzz/fontconfig/FreeType/GLib libraries and DejaVu fonts. The figures, numbers and tables in a report
-belong to the steps that made them and to the data's licence (Discover 349: CC BY 4.0; Fantasia: ODC-By 1.0;
-Autonomic Aging: ODbL 1.0).
+belong to the steps that made them and to the data's licence (Discover 349, 655 and 406: CC BY 4.0; Fantasia:
+ODC-By 1.0; Autonomic Aging: ODbL 1.0).
 
 ## Citations
 
@@ -237,6 +241,12 @@ and PubMed; full author lists in CITATION.cff.
   doi:[10.1161/01.HYP.37.3.911](https://doi.org/10.1161/01.HYP.37.3.911), PMID 11244017
 - Armitage O, Sarkans E, Wernisch L, Fortier-Poisson P, Berthon A, Tessier-Larivière O. Influence of vagus nerve
   stimulation on cardiac activity in pigs. SPARC Portal 2023. doi:[10.26275/dm5l-tspb](https://doi.org/10.26275/dm5l-tspb)
+- Bender SA, Green DB, Thakkar VS, Zimmerman HL, Elazab M, Kilgore KL, Vrabec TL. Single-electrode bidirectional
+  control of heart rate via vagus nerve modulation in rat model. SPARC Portal 2026.
+  doi:[10.26275/5cwo-mkpz](https://doi.org/10.26275/5cwo-mkpz)
+- Ali MK, Gong S, Nojkov B, Burnett C, Chen JD. Best parameters of heart rate variability for assessing autonomic
+  responses to brief rectal distention in patients with irritable bowel syndrome. SPARC Portal 2024.
+  doi:[10.26275/nung-b9bm](https://doi.org/10.26275/nung-b9bm)
 - Iyengar N, Peng C-K, Morin R, Goldberger AL, Lipsitz LA. Fantasia Database. PhysioNet 1994.
   doi:[10.13026/C2RG61](https://doi.org/10.13026/C2RG61)
 - Iyengar N, Peng CK, Morin R, Goldberger AL, Lipsitz LA. Age-related alterations in the fractal scaling of cardiac
@@ -257,5 +267,5 @@ and PubMed; full author lists in CITATION.cff.
 
 The methods in every report are those of the upstream projects each step packages (Neo, WFDB for Python,
 pyEDFlib, PyNWB and NWB Inspector, NeuroKit2, SciPy, statsmodels; see each app's README) and of the authors of the
-methods they implement. The demo data come from Pennsieve Discover (dataset 349) and PhysioNet (Fantasia,
+methods they implement. The demo data come from Pennsieve Discover (datasets 349, 655 and 406) and PhysioNet (Fantasia,
 Autonomic Aging); PhysioNet asks that Goldberger et al. 2000 be cited with its databases.

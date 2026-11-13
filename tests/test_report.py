@@ -75,6 +75,7 @@ def test_full_linked_report(linked: Path, tmp_path: Path) -> None:
     # Dose-response: threshold, EC50 with CI, fulcrum, the held-fixed parameter as words.
     assert "812.4 (640.2–1,021)" in t and "frequency 30 Hz" in t and "Amplitude at the fulcrum (uA)" in t
     assert "612.5" in t and "none reached" in t
+    assert "Threshold criterion (from fits.csv): heart rate (ECG), bpm: auto: 5% of baseline" in t
     # Every step's notice box, the licence notice at the top and in its section, the test link only.
     assert page.count("<h4>Read this first</h4>") == 4
     assert page.count("Test terms: example parameter tables") == 2

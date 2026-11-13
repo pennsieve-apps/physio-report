@@ -620,11 +620,11 @@ def param_name(key: str) -> str:
 
 
 def held_fixed(group: str, amp_unit: str = "") -> str:
-    """`frequency_hz=10|pulse_width_us=500` as `frequency 10 Hz, pulse width 500 µs`."""
+    """`frequency_hz=10;pulse_width_us=500` (`;` or `|`) as `frequency 10 Hz, pulse width 500 µs`."""
     if not group:
         return "–"
     out = []
-    for part in group.split("|"):
+    for part in re.split(r"[|;]", group):
         k, sep, v = part.partition("=")
         if not sep:
             out.append(part)
@@ -698,7 +698,16 @@ def dose_tables(step: Step | None, ev_step: Step | None) -> dict[str, Any] | Non
     fit_table = {"header": ["Subject", "Series", "Parameter varied", "Held fixed", "Model", "Threshold", "EC50 (95 % CI)",
                             "Maximum change (top)", "r²", "Levels", "Threshold criterion"],
                  "kinds": ["text", "text", "text", "text", "text", "num", "num", "num", "num", "int", "text"],
-                 "rows": rows, "raw": raw} if rows else None
+                 "rows": rows, "raw": raw, "criteria": []} if rows else None
+    # One criterion per series (the usual case): said once under the table, not on every row.
+    by_var: dict[str, set[str]] = {}
+    for f in fits:
+        by_var.setdefault(variable_name(str(f.get("variable", ""))), set()).add(str(f.get("threshold_criterion") or "–"))
+    if fit_table and all(len(v) == 1 for v in by_var.values()):
+        fit_table["criteria"] = [{"series": k, "criterion": next(iter(v))} for k, v in by_var.items()]
+        fit_table["header"] = fit_table["header"][:-1]
+        fit_table["kinds"] = fit_table["kinds"][:-1]
+        fit_table["rows"] = [r[:-1] for r in rows]
     ful.sort(key=lambda f: (subj_key(str(f.get("subject", ""))), variable_key(str(f.get("variable", ""))),
                             num(f.get("frequency_hz")) or 0))
     frows = [[str(f.get("subject") or "–"), variable_name(str(f.get("variable", ""))), fmt(f.get("frequency_hz")),

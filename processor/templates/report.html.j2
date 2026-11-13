@@ -200,10 +200,11 @@ calibrated pressure channels.</p>
 <p>From stim-dose-response (<a href="#{{ d.anchor }}">section</a>): {{ d.n_fits }} fit{{ 's' if d.n_fits != 1 }}
 ({{ d.subjects|length }} subject{{ 's' if d.subjects|length != 1 }}{% if d.pooled %}, plus pooled fits{% endif %}),
 {{ d.n_threshold }} with a threshold reached and {{ d.n_ec50 }} with an EC50. One row per subject, series and
-parameter varied with the others held fixed; the threshold is the lowest level whose response exceeds the criterion
-in the last column, the EC50 the level of half the maximum change of a sigmoid fit ("–" when the chosen model is linear or none).</p>
+parameter varied with the others held fixed; the threshold is the lowest level whose response exceeds the threshold
+criterion, the EC50 the level of half the maximum change of a sigmoid fit ("–" when the chosen model is linear or none).</p>
 {% for n in d.notices %}<div class="box resbox"><p>{{ n }}</p></div>{% endfor %}
-{% if d.fits %}{{ table(d.fits) }}{% endif %}
+{% if d.fits %}{{ table(d.fits) }}
+{% if d.fits.criteria %}<p class="note">Threshold criterion (from fits.csv): {% for c in d.fits.criteria %}{{ c.series }}: {{ c.criterion }}{% if not loop.last %}; {% endif %}{% endfor %}.</p>{% endif %}{% endif %}
 {% if d.fulcrum %}
 <h4>Neural fulcrum</h4>
 <p class="note">The amplitude where the heart-rate response to the trains changes sign at a fixed frequency (Ardell et
