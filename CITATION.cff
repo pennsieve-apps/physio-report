@@ -1,0 +1,281 @@
+cff-version: 1.2.0
+message: If you use this app, please cite it and the works it builds on, listed under references.
+type: software
+title: physio-report
+abstract: 'HTML and PDF report of the cardiovascular and autonomic physiology workflows (Cardiovascular Response
+  to Nerve Stimulation; Heart Rate Variability and Baroreflex): a recordings table with the signals present and
+  the steps that skipped each recording, signal quality from physio-import, key results (resting heart rate and
+  heart rate variability, blood pressure and baroreflex sensitivity next to published reference values for healthy
+  adults, thresholds, EC50 and the neural fulcrum per subject), and one section per linked step (stim-events, ecg-hrv,
+  bp-resp, stim-dose-response) with the figures and captions each step wrote, warnings, licence notices and references,
+  plus a tables folder. Rendered with Jinja and WeasyPrint. Research output, not a clinical finding.'
+authors:
+- name: Pennsieve (University of Pennsylvania)
+contact:
+- given-names: Joost
+  family-names: Wagenaar
+  orcid: https://orcid.org/0009-0004-5925-5451
+  affiliation: University of Pennsylvania
+repository-code: https://github.com/pennsieve-apps/physio-report
+license: Apache-2.0
+keywords:
+- physiology
+- autonomic
+- cardiovascular
+- ecg
+- heart-rate-variability
+- blood-pressure
+- baroreflex
+- respiration
+- neuromodulation
+- nerve-stimulation
+- dose-response
+- report
+references:
+- type: article
+  title: An Overview of Heart Rate Variability Metrics and Norms
+  authors:
+  - family-names: Shaffer
+    given-names: Fred
+  - family-names: Ginsberg
+    given-names: J. P.
+  doi: 10.3389/fpubh.2017.00258
+  year: 2017
+  journal: Frontiers in Public Health
+  volume: '5'
+  start: '258'
+  identifiers:
+  - type: other
+    value: '29034226'
+    description: PMID
+- type: article
+  title: A Quantitative Systematic Review of Normal Values for Short-Term Heart Rate Variability in Healthy Adults
+  authors:
+  - family-names: NUNAN
+    given-names: DAVID
+  - family-names: SANDERCOCK
+    given-names: GAVIN R. H.
+  - family-names: BRODIE
+    given-names: DAVID A.
+  doi: 10.1111/j.1540-8159.2010.02841.x
+  year: 2010
+  journal: Pacing and Clinical Electrophysiology
+  volume: '33'
+  issue: '11'
+  start: '1407'
+  end: '1417'
+  identifiers:
+  - type: other
+    value: '20663071'
+    description: PMID
+- type: article
+  title: Determinants of Spontaneous Baroreflex Sensitivity in a Healthy Working Population
+  authors:
+  - family-names: Kardos
+    given-names: Attila
+  - family-names: Watterich
+    given-names: Gusztáv
+  - family-names: de Menezes
+    given-names: Renee
+  - family-names: Csanády
+    given-names: Miklós
+  - family-names: Casadei
+    given-names: Barbara
+  - family-names: Rudas
+    given-names: László
+  year: 2001
+  journal: Hypertension
+  volume: '37'
+  issue: '3'
+  start: '911'
+  end: '916'
+  doi: 10.1161/01.HYP.37.3.911
+  identifiers:
+  - type: other
+    value: '11244017'
+    description: PMID
+- type: data
+  title: Influence of vagus nerve stimulation on cardiac activity in pigs
+  authors:
+  - family-names: Armitage
+    given-names: Oliver
+  - family-names: Sarkans
+    given-names: Elvijs
+  - family-names: Wernisch
+    given-names: Lorenz
+  - family-names: Fortier-Poisson
+    given-names: Pascal
+  - family-names: Berthon
+    given-names: Antonin
+  - family-names: Tessier-Larivière
+    given-names: Olivier
+  doi: 10.26275/dm5l-tspb
+  year: 2023
+  publisher:
+    name: SPARC Portal
+  version: '1'
+- type: data
+  title: Single-electrode bidirectional control of heart rate via vagus nerve modulation in rat model
+  authors:
+  - family-names: Bender
+    given-names: Shane A
+  - family-names: Green
+    given-names: David B
+  - family-names: Thakkar
+    given-names: Varun S
+  - family-names: Zimmerman
+    given-names: Hope L
+  - family-names: Elazab
+    given-names: Mohamed
+  - family-names: Kilgore
+    given-names: Kevin L
+  - family-names: Vrabec
+    given-names: Tina L
+  doi: 10.26275/5cwo-mkpz
+  year: 2026
+  publisher:
+    name: SPARC Portal
+  version: '1'
+- type: data
+  title: Best parameters of heart rate variability for assessing autonomic responses to brief rectal distention
+    in patients with irritable bowel syndrome
+  authors:
+  - family-names: Ali
+    given-names: M Khawar
+  - family-names: Gong
+    given-names: Shiyuan
+  - family-names: Nojkov
+    given-names: Borko
+  - family-names: Burnett
+    given-names: Colin
+  - family-names: Chen
+    given-names: Jiande D
+  doi: 10.26275/nung-b9bm
+  year: 2024
+  publisher:
+    name: SPARC Portal
+  version: '1'
+- type: data
+  title: Fantasia Database
+  authors:
+  - family-names: Iyengar
+    given-names: Nikhil
+  - family-names: Peng
+    given-names: C-K
+  - family-names: Morin
+    given-names: Raymond
+  - family-names: Goldberger
+    given-names: Ary L
+  - family-names: Lipsitz
+    given-names: Lewis A
+  doi: 10.13026/C2RG61
+  year: 1994
+  publisher:
+    name: physionet.org
+- type: article
+  title: Age-related alterations in the fractal scaling of cardiac interbeat interval dynamics
+  authors:
+  - family-names: Iyengar
+    given-names: N.
+  - family-names: Peng
+    given-names: C. K.
+  - family-names: Morin
+    given-names: R.
+  - family-names: Goldberger
+    given-names: A. L.
+  - family-names: Lipsitz
+    given-names: L. A.
+  doi: 10.1152/ajpregu.1996.271.4.R1078
+  year: 1996
+  journal: American Journal of Physiology-Regulatory, Integrative and Comparative Physiology
+  volume: '271'
+  issue: '4'
+  start: R1078
+  end: R1084
+  identifiers:
+  - type: other
+    value: '8898003'
+    description: PMID
+- type: data
+  title: 'Autonomic Aging: A dataset to quantify changes of cardiovascular autonomic function during healthy aging'
+  authors:
+  - family-names: Schumann
+    given-names: Andy
+  - family-names: Bär
+    given-names: Karl
+  doi: 10.13026/2hsy-t491
+  year: 2021
+  publisher:
+    name: PhysioNet
+  version: 1.0.0
+- type: article
+  title: Autonomic aging – A dataset to quantify changes of cardiovascular autonomic function during healthy aging
+  authors:
+  - family-names: Schumann
+    given-names: Andy
+  - family-names: Bär
+    given-names: Karl-Jürgen
+  doi: 10.1038/s41597-022-01202-y
+  year: 2022
+  journal: Scientific Data
+  volume: '9'
+  issue: '1'
+  start: '95'
+  identifiers:
+  - type: other
+    value: '35322044'
+    description: PMID
+- type: article
+  title: PhysioBank, PhysioToolkit, and PhysioNet
+  authors:
+  - family-names: Goldberger
+    given-names: Ary L.
+  - family-names: Amaral
+    given-names: Luis A. N.
+  - family-names: Glass
+    given-names: Leon
+  - family-names: Hausdorff
+    given-names: Jeffrey M.
+  - family-names: Ivanov
+    given-names: Plamen Ch.
+  - family-names: Mark
+    given-names: Roger G.
+  - family-names: Mietus
+    given-names: Joseph E.
+  - family-names: Moody
+    given-names: George B.
+  - family-names: Peng
+    given-names: Chung-Kang
+  - family-names: Stanley
+    given-names: H. Eugene
+  doi: 10.1161/01.CIR.101.23.e215
+  year: 2000
+  journal: Circulation
+  volume: '101'
+  issue: '23'
+  identifiers:
+  - type: other
+    value: '10851218'
+    description: PMID
+- type: software
+  title: WeasyPrint
+  authors:
+  - family-names: Sapin
+    given-names: Simon
+  - name: CourtBouillon
+  repository-code: https://github.com/Kozea/WeasyPrint
+  license: BSD-3-Clause
+- type: software
+  title: Jinja
+  authors:
+  - name: Pallets
+  repository-code: https://github.com/pallets/jinja
+  license: BSD-3-Clause
+- type: software
+  title: Pillow
+  authors:
+  - family-names: Clark
+    given-names: Jeffrey 'Alex'
+  - name: Pillow contributors
+  repository-code: https://github.com/python-pillow/Pillow
+  license: MIT-CMU

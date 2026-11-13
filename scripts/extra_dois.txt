@@ -1,0 +1,53 @@
+# DOIs a step or the report may cite that are not (yet) in a sibling CITATION.cff; fetched from the
+# registries by build_citations.py. From workflow-physiology/docs/research/citations.md (verified
+# table), the DOIs the sibling apps' code cites, and the sources of the report's reference values.
+# Reference values (processor/apps.py REFERENCE_VALUES)
+10.3389/fpubh.2017.00258
+10.1111/j.1540-8159.2010.02841.x
+10.1161/01.HYP.37.3.911
+# workflow-physiology/docs/research/citations.md
+10.1016/j.biopsycho.2005.11.014
+10.1016/j.biopsycho.2011.11.009
+10.1016/j.brs.2020.09.002
+10.1038/s41592-019-0686-2
+10.1038/s41597-022-01202-y
+10.1038/sdata.2016.44
+10.1080/03091902.2019.1640306
+10.1088/1361-6579/aad7e6
+10.1088/1741-2552/ab7ad4
+10.1088/1741-2552/ab9db8
+10.1088/1741-2552/acb3fd
+10.1101/2021.02.10.430563
+10.1109/TBME.1985.325532
+10.1113/expphysiol.2007.040733
+10.1113/JP274678
+10.1152/ajpregu.00709.2002
+10.1152/ajpregu.1996.271.4.R1078
+10.1161/01.CIR.101.23.e215
+10.1161/01.CIR.93.5.1043
+10.1161/01.HYP.12.2.214
+10.1186/s42234-023-00107-4
+10.13026/2hsy-t491
+10.13026/9njx-6322
+10.13026/C2RG61
+10.25080/Majora-92bf1922-011
+10.26275/5cwo-mkpz
+10.26275/dm5l-tspb
+10.26275/nung-b9bm
+10.26275/qh3q-elj6
+10.3389/fninf.2014.00010
+10.3389/fphys.2018.01390
+10.3389/fpubh.2017.00258
+10.3758/s13428-020-01516-y
+10.7554/eLife.78362
+# Cited in the sibling apps' code (2026-11-13)
+10.1007/s13246-023-01380-y
+10.1016/j.physbeh.2011.01.019
+10.1038/s41440-026-02579-8
+10.1109/CIC.2003.1291140
+10.1109/MEMB.2009.934630
+10.1109/TAC.1974.1100705
+10.1214/aos/1176344552
+10.1371/journal.pone.0134387
+10.3389/fphys.2023.1170320
+10.3389/fphys.2023.1185744
