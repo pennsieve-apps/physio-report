@@ -95,7 +95,7 @@ def test_full_linked_report(linked: Path, tmp_path: Path) -> None:
     assert "CRITICAL kept (missing subject metadata): check_subject_age" in t
     # Dose table: an upper-bound threshold, a blanked fit, the one-level group left out.
     assert "≤ 1,000" in t and "fit blanked: the response changes sign" in t
-    assert "1 group with only one level of the parameter tested" in t
+    assert "1 group with fewer than two levels of the parameter analysed" in t
     # bp-resp's checks next to the pressures and in its section.
     assert "1 level step; SBP drift +34 mmHg" in t and "Checks to read before the numbers" in t
     assert "ecg channel: ecg" in t

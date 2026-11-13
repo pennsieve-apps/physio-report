@@ -41,8 +41,8 @@ saying what everything in it is: **research output, not a clinical finding**, an
      criterion, EC50 with its confidence interval, maximum change, r², levels, the step's note) and the **neural
      fulcrum**, with stim-dose-response's caveat about what the fulcrum means in acute preparations. A threshold
      that is only an upper bound (`threshold_bound=upper`: the next lower level was not tested or not analysed)
-     is shown as "≤"; a fit blanked because the response changes sign says so; groups with one tested level are
-     counted, not listed (they stay in `dose_response.csv`);
+     is shown as "≤"; a fit blanked because the response changes sign says so; groups with fewer than two analysed
+     levels are counted, not listed (they stay in `dose_response.csv`);
    - bp-resp's pressure checks (level steps, drift, channel status, channel choice) next to the pressures.
 3. One section per linked step, in workflow order, each starting with the step's own **method caveat** (its
    summary.json `notice`) and licence notice: physio-import's signal quality (flagged channels with the reason,
@@ -171,7 +171,7 @@ five demos (the three below, plus Discover 655 and 406), against the apps' own s
 fixture (`tests/`, 27 tests, the PDF test in the image):
 
 - **Discover 349** (pig, 20 trains over 50–2500 µA x 2–30 Hz): one recording; physio-import, stim-events (20
-  trains, amplitude and frequency varied), ecg-hrv (mean HR 71.25 bpm, SDNN 31.92 ms, device HR mean absolute
+  trains, amplitude and frequency varied), ecg-hrv (mean HR 71.25 bpm, SDNN 31.95 ms, device HR mean absolute
   difference 0.83 bpm), bp-resp (skipped: no blood pressure or respiration channel, shown as not analysed, not as a
   failure) and stim-dose-response (27 fits, 20 with a threshold, 8 of them upper bounds, none with an EC50, 2 blanked because the response changes sign; neural fulcrum at 1,751 µA
   for the ECG heart rate and 1,714 µA for the device heart rate at 30 Hz). No reference values: pig.

@@ -11,6 +11,7 @@ The image contains no model weights and no data. Python packages (pinned in `req
 | Pyphen 0.18.1 | Kozea | GPL 2.0+/LGPL 2.1+/MPL 1.1 tri-licence; used under MPL 1.1. Its hyphenation dictionaries (LibreOffice) are deleted from the image | https://github.com/Kozea/Pyphen |
 | Jinja2 3.1.6, MarkupSafe 3.0.4 (HTML) | Pallets | BSD-3-Clause | https://github.com/pallets/jinja |
 | Pillow 13.0.0 (figure checks, PDF images) | Jeffrey A. Clark and contributors; Secret Labs AB; Fredrik Lundh | MIT-CMU | https://github.com/python-pillow/Pillow |
+| Native libraries inside the Pillow wheel (`pillow.libs/`): libjpeg-turbo, libpng, libtiff, libwebp (with sharpyuv), libavif, OpenJPEG, Little CMS 2, FreeType, HarfBuzz, Brotli, liblzma (XZ Utils), zstd, libxcb, libXau | their authors | each under its own licence (IJG/BSD-3-Clause/zlib, libpng, libtiff, BSD-3-Clause, BSD-2-Clause, BSD-2-Clause, MIT, FTL, MIT, MIT, 0BSD, BSD-3-Clause, MIT, MIT); the texts are in the wheel's `pillow-13.0.0.dist-info/licenses/LICENSE` | https://github.com/python-pillow/Pillow |
 | fontTools 4.68.0 | Just van Rossum and the fontTools contributors | MIT | https://github.com/fonttools/fonttools |
 | Brotli 1.2.1 | Google | MIT | https://github.com/google/brotli |
 | zopfli (py-zopfli) 0.4.3 | Google; fonttools | Apache-2.0 | https://github.com/fonttools/py-zopfli |
