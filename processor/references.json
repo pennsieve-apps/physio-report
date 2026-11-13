@@ -1,0 +1,3355 @@
+{
+ "_about": "Built by scripts/build_citations.py from the sibling apps' verified CITATION.cff files, and from Crossref/DataCite/PubMed for the other DOIs the steps cite. Do not edit by hand.",
+ "apps": {
+  "physio-import": {
+   "title": "physio-import",
+   "repository": "https://github.com/pennsieve-apps/physio-import",
+   "license": "Apache-2.0"
+  },
+  "stim-events": {
+   "title": "stim-events",
+   "repository": "https://github.com/pennsieve-apps/stim-events",
+   "license": "Apache-2.0"
+  },
+  "ecg-hrv": {
+   "title": "ecg-hrv",
+   "repository": "https://github.com/pennsieve-apps/ecg-hrv",
+   "license": "Apache-2.0"
+  },
+  "bp-resp": {
+   "title": "bp-resp",
+   "repository": "https://github.com/pennsieve-apps/bp-resp",
+   "license": "Apache-2.0"
+  },
+  "stim-dose-response": {
+   "title": "stim-dose-response",
+   "repository": "https://github.com/pennsieve-apps/stim-dose-response",
+   "license": "Apache-2.0"
+  },
+  "physio-report": {
+   "title": "physio-report",
+   "repository": "https://github.com/pennsieve-apps/physio-report",
+   "license": "Apache-2.0"
+  }
+ },
+ "software": {
+  "physio-import": [
+   {
+    "title": "Waveform Database Software Package (WFDB) for Python",
+    "url": "https://doi.org/10.13026/9njx-6322",
+    "doi": "10.13026/9njx-6322"
+   },
+   {
+    "title": "uwmadison-chm/bioread: 2.1.2",
+    "url": "https://doi.org/10.5281/zenodo.3374011",
+    "doi": "10.5281/zenodo.3374011"
+   },
+   {
+    "title": "pandas-dev/pandas: Pandas",
+    "url": "https://doi.org/10.5281/zenodo.3509134",
+    "doi": "10.5281/zenodo.3509134"
+   },
+   {
+    "title": "holgern/pyedflib: v0.1.42",
+    "url": "https://github.com/holgern/pyedflib",
+    "doi": "10.5281/zenodo.3492211"
+   },
+   {
+    "title": "pymatreader",
+    "url": "https://gitlab.com/obob/pymatreader",
+    "doi": ""
+   },
+   {
+    "title": "NWB Inspector",
+    "url": "https://github.com/NeurodataWithoutBorders/nwbinspector",
+    "doi": ""
+   },
+   {
+    "title": "PyNWB",
+    "url": "https://github.com/NeurodataWithoutBorders/pynwb",
+    "doi": ""
+   },
+   {
+    "title": "h5py",
+    "url": "https://github.com/h5py/h5py",
+    "doi": ""
+   },
+   {
+    "title": "The Brain Imaging Data Structure (BIDS) Specification",
+    "url": "https://doi.org/10.5281/zenodo.3686061",
+    "doi": "10.5281/zenodo.3686061"
+   }
+  ],
+  "stim-events": [
+   {
+    "title": "h5py",
+    "url": "https://github.com/h5py/h5py",
+    "doi": ""
+   },
+   {
+    "title": "openpyxl",
+    "url": "https://openpyxl.readthedocs.io",
+    "doi": ""
+   },
+   {
+    "title": "PyYAML",
+    "url": "https://github.com/yaml/pyyaml",
+    "doi": ""
+   }
+  ],
+  "ecg-hrv": [
+   {
+    "title": "Waveform Database Software Package (WFDB) for Python",
+    "url": "https://doi.org/10.13026/9njx-6322",
+    "doi": "10.13026/9njx-6322"
+   }
+  ],
+  "bp-resp": [
+   {
+    "title": "Waveform Database Software Package (WFDB) for Python",
+    "url": "https://doi.org/10.13026/9njx-6322",
+    "doi": "10.13026/9njx-6322"
+   }
+  ],
+  "stim-dose-response": [
+   {
+    "title": "h5py",
+    "url": "https://github.com/h5py/h5py",
+    "doi": ""
+   },
+   {
+    "title": "patsy",
+    "url": "https://github.com/pydata/patsy",
+    "doi": ""
+   }
+  ],
+  "physio-report": [
+   {
+    "title": "WeasyPrint",
+    "url": "https://github.com/Kozea/WeasyPrint",
+    "doi": ""
+   },
+   {
+    "title": "Jinja",
+    "url": "https://github.com/pallets/jinja",
+    "doi": ""
+   },
+   {
+    "title": "Pillow",
+    "url": "https://github.com/python-pillow/Pillow",
+    "doi": ""
+   }
+  ]
+ },
+ "references": {
+  "10.1007/s13246-023-01380-y": {
+   "doi": "10.1007/s13246-023-01380-y",
+   "type": "article",
+   "title": "On the accuracy of sequence methods for baroreflex sensitivity estimation",
+   "authors": [
+    {
+     "family": "Bagnall-Hare",
+     "given": "Hasana"
+    },
+    {
+     "family": "McLoone",
+     "given": "Violeta I."
+    },
+    {
+     "family": "Ringwood",
+     "given": "John V."
+    }
+   ],
+   "journal": "Physical and Engineering Sciences in Medicine",
+   "publisher": "",
+   "year": 2024,
+   "volume": "47",
+   "issue": "2",
+   "pages": "503-516",
+   "pmid": "38564152",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "bp-resp"
+   ]
+  },
+  "10.1016/j.biopsycho.2005.11.014": {
+   "doi": "10.1016/j.biopsycho.2005.11.014",
+   "type": "article",
+   "title": "Toward understanding respiratory sinus arrhythmia: Relations to cardiac vagal tone, evolution and biobehavioral functions",
+   "authors": [
+    {
+     "family": "Grossman",
+     "given": "Paul"
+    },
+    {
+     "family": "Taylor",
+     "given": "Edwin W."
+    }
+   ],
+   "journal": "Biological Psychology",
+   "publisher": "",
+   "year": 2007,
+   "volume": "74",
+   "issue": "2",
+   "pages": "263-285",
+   "pmid": "17081672",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "bp-resp"
+   ]
+  },
+  "10.1016/j.biopsycho.2011.11.009": {
+   "doi": "10.1016/j.biopsycho.2011.11.009",
+   "type": "article",
+   "title": "Statistical strategies to quantify respiratory sinus arrhythmia: Are commonly used metrics equivalent?",
+   "authors": [
+    {
+     "family": "Lewis",
+     "given": "Gregory F."
+    },
+    {
+     "family": "Furman",
+     "given": "Senta A."
+    },
+    {
+     "family": "McCool",
+     "given": "Martha F."
+    },
+    {
+     "family": "Porges",
+     "given": "Stephen W."
+    }
+   ],
+   "journal": "Biological Psychology",
+   "publisher": "",
+   "year": 2012,
+   "volume": "89",
+   "issue": "2",
+   "pages": "349-364",
+   "pmid": "22138367",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "bp-resp"
+   ]
+  },
+  "10.1016/j.brs.2020.09.002": {
+   "doi": "10.1016/j.brs.2020.09.002",
+   "type": "article",
+   "title": "Quantitative estimation of nerve fiber engagement by vagus nerve stimulation using physiological markers",
+   "authors": [
+    {
+     "family": "Chang",
+     "given": "Yao-Chuan"
+    },
+    {
+     "family": "Cracchiolo",
+     "given": "Marina"
+    },
+    {
+     "family": "Ahmed",
+     "given": "Umair"
+    },
+    {
+     "family": "Mughrabi",
+     "given": "Ibrahim"
+    },
+    {
+     "family": "Gabalski",
+     "given": "Arielle"
+    },
+    {
+     "family": "Daytz",
+     "given": "Anna"
+    },
+    {
+     "family": "Rieth",
+     "given": "Loren"
+    },
+    {
+     "family": "Becker",
+     "given": "Lance"
+    },
+    {
+     "family": "Datta-Chaudhuri",
+     "given": "Timir"
+    },
+    {
+     "family": "Al-Abed",
+     "given": "Yousef"
+    },
+    {
+     "family": "Zanos",
+     "given": "Theodoros P."
+    },
+    {
+     "family": "Zanos",
+     "given": "Stavros"
+    }
+   ],
+   "journal": "Brain Stimulation",
+   "publisher": "",
+   "year": 2020,
+   "volume": "13",
+   "issue": "6",
+   "pages": "1617-1630",
+   "pmid": "32956868",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "stim-dose-response"
+   ]
+  },
+  "10.1016/j.neuroimage.2017.02.025": {
+   "doi": "10.1016/j.neuroimage.2017.02.025",
+   "type": "article",
+   "title": "Higher locus coeruleus MRI contrast is associated with lower parasympathetic influence over heart rate variability",
+   "authors": [
+    {
+     "family": "Mather",
+     "given": "Mara"
+    },
+    {
+     "family": "Joo Yoo",
+     "given": "Hyun"
+    },
+    {
+     "family": "Clewett",
+     "given": "David V."
+    },
+    {
+     "family": "Lee",
+     "given": "Tae-Ho"
+    },
+    {
+     "family": "Greening",
+     "given": "Steven G."
+    },
+    {
+     "family": "Ponzio",
+     "given": "Allison"
+    },
+    {
+     "family": "Min",
+     "given": "Jungwon"
+    },
+    {
+     "family": "Thayer",
+     "given": "Julian F."
+    }
+   ],
+   "journal": "NeuroImage",
+   "publisher": "",
+   "year": 2017,
+   "volume": "150",
+   "issue": "",
+   "pages": "329-335",
+   "pmid": "28215623",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import"
+   ]
+  },
+  "10.1016/j.physbeh.2011.01.019": {
+   "doi": "10.1016/j.physbeh.2011.01.019",
+   "type": "article",
+   "title": "Identification of low and high frequency ranges for heart rate variability and blood pressure variability analyses using pharmacological autonomic blockade with atropine and propranolol in swine",
+   "authors": [
+    {
+     "family": "Poletto",
+     "given": "Rosangela"
+    },
+    {
+     "family": "Janczak",
+     "given": "Andrew M."
+    },
+    {
+     "family": "Marchant-Forde",
+     "given": "Ruth M."
+    },
+    {
+     "family": "Marchant",
+     "given": "Jeremy N."
+    },
+    {
+     "family": "Matthews",
+     "given": "Donald L."
+    },
+    {
+     "family": "Dowell",
+     "given": "Carol A."
+    },
+    {
+     "family": "Hogan",
+     "given": "Daniel F."
+    },
+    {
+     "family": "Freeman",
+     "given": "Lynetta J."
+    },
+    {
+     "family": "Lay",
+     "given": "Donald C."
+    }
+   ],
+   "journal": "Physiology & Behavior",
+   "publisher": "",
+   "year": 2011,
+   "volume": "103",
+   "issue": "2",
+   "pages": "188-196",
+   "pmid": "21281655",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "ecg-hrv",
+    "bp-resp"
+   ]
+  },
+  "10.1038/s41440-026-02579-8": {
+   "doi": "10.1038/s41440-026-02579-8",
+   "type": "article",
+   "title": "Constant light disrupts biological rhythms and worsens sleep quality but does not elevate blood pressure in female rats",
+   "authors": [
+    {
+     "family": "Molcan",
+     "given": "Lubos"
+    },
+    {
+     "family": "Mauer Sutovska",
+     "given": "Hana"
+    },
+    {
+     "family": "Zeman",
+     "given": "Michal"
+    }
+   ],
+   "journal": "Hypertension Research",
+   "publisher": "",
+   "year": 2026,
+   "volume": "49",
+   "issue": "4",
+   "pages": "1349-1360",
+   "pmid": "41714710",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "bp-resp"
+   ]
+  },
+  "10.1038/s41562-018-0344-1": {
+   "doi": "10.1038/s41562-018-0344-1",
+   "type": "article",
+   "title": "Arousal increases neural gain via the locus coeruleus–noradrenaline system in younger adults but not in older adults",
+   "authors": [
+    {
+     "family": "Lee",
+     "given": "Tae-Ho"
+    },
+    {
+     "family": "Greening",
+     "given": "Steven G."
+    },
+    {
+     "family": "Ueno",
+     "given": "Taiji"
+    },
+    {
+     "family": "Clewett",
+     "given": "David"
+    },
+    {
+     "family": "Ponzio",
+     "given": "Allison"
+    },
+    {
+     "family": "Sakaki",
+     "given": "Michiko"
+    },
+    {
+     "family": "Mather",
+     "given": "Mara"
+    }
+   ],
+   "journal": "Nature Human Behaviour",
+   "publisher": "",
+   "year": 2018,
+   "volume": "2",
+   "issue": "",
+   "pages": "356-366",
+   "pmid": "30320223",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import"
+   ]
+  },
+  "10.1038/s41586-020-2649-2": {
+   "doi": "10.1038/s41586-020-2649-2",
+   "type": "article",
+   "title": "Array programming with NumPy",
+   "authors": [
+    {
+     "family": "Harris",
+     "given": "Charles R."
+    },
+    {
+     "family": "Millman",
+     "given": "K. Jarrod"
+    },
+    {
+     "family": "van der Walt",
+     "given": "Stéfan J."
+    },
+    {
+     "family": "Gommers",
+     "given": "Ralf"
+    },
+    {
+     "family": "Virtanen",
+     "given": "Pauli"
+    },
+    {
+     "family": "Cournapeau",
+     "given": "David"
+    },
+    {
+     "family": "Wieser",
+     "given": "Eric"
+    },
+    {
+     "family": "Taylor",
+     "given": "Julian"
+    },
+    {
+     "family": "Berg",
+     "given": "Sebastian"
+    },
+    {
+     "family": "Smith",
+     "given": "Nathaniel J."
+    },
+    {
+     "family": "Kern",
+     "given": "Robert"
+    },
+    {
+     "family": "Picus",
+     "given": "Matti"
+    },
+    {
+     "family": "Hoyer",
+     "given": "Stephan"
+    },
+    {
+     "family": "van Kerkwijk",
+     "given": "Marten H."
+    },
+    {
+     "family": "Brett",
+     "given": "Matthew"
+    },
+    {
+     "family": "Haldane",
+     "given": "Allan"
+    },
+    {
+     "family": "del Río",
+     "given": "Jaime Fernández"
+    },
+    {
+     "family": "Wiebe",
+     "given": "Mark"
+    },
+    {
+     "family": "Peterson",
+     "given": "Pearu"
+    },
+    {
+     "family": "Gérard-Marchant",
+     "given": "Pierre"
+    },
+    {
+     "family": "Sheppard",
+     "given": "Kevin"
+    },
+    {
+     "family": "Reddy",
+     "given": "Tyler"
+    },
+    {
+     "family": "Weckesser",
+     "given": "Warren"
+    },
+    {
+     "family": "Abbasi",
+     "given": "Hameer"
+    },
+    {
+     "family": "Gohlke",
+     "given": "Christoph"
+    },
+    {
+     "family": "Oliphant",
+     "given": "Travis E."
+    }
+   ],
+   "journal": "Nature",
+   "publisher": "",
+   "year": 2020,
+   "volume": "585",
+   "issue": "7825",
+   "pages": "357-362",
+   "pmid": "32939066",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import",
+    "stim-events",
+    "stim-dose-response"
+   ]
+  },
+  "10.1038/s41592-019-0686-2": {
+   "doi": "10.1038/s41592-019-0686-2",
+   "type": "article",
+   "title": "SciPy 1.0: fundamental algorithms for scientific computing in Python",
+   "authors": [
+    {
+     "family": "Virtanen",
+     "given": "Pauli"
+    },
+    {
+     "family": "Gommers",
+     "given": "Ralf"
+    },
+    {
+     "family": "Oliphant",
+     "given": "Travis E."
+    },
+    {
+     "family": "Haberland",
+     "given": "Matt"
+    },
+    {
+     "family": "Reddy",
+     "given": "Tyler"
+    },
+    {
+     "family": "Cournapeau",
+     "given": "David"
+    },
+    {
+     "family": "Burovski",
+     "given": "Evgeni"
+    },
+    {
+     "family": "Peterson",
+     "given": "Pearu"
+    },
+    {
+     "family": "Weckesser",
+     "given": "Warren"
+    },
+    {
+     "family": "Bright",
+     "given": "Jonathan"
+    },
+    {
+     "family": "van der Walt",
+     "given": "Stéfan J."
+    },
+    {
+     "family": "Brett",
+     "given": "Matthew"
+    },
+    {
+     "family": "Wilson",
+     "given": "Joshua"
+    },
+    {
+     "family": "Millman",
+     "given": "K. Jarrod"
+    },
+    {
+     "family": "Mayorov",
+     "given": "Nikolay"
+    },
+    {
+     "family": "Nelson",
+     "given": "Andrew R. J."
+    },
+    {
+     "family": "Jones",
+     "given": "Eric"
+    },
+    {
+     "family": "Kern",
+     "given": "Robert"
+    },
+    {
+     "family": "Larson",
+     "given": "Eric"
+    },
+    {
+     "family": "Carey",
+     "given": "C J"
+    },
+    {
+     "family": "Polat",
+     "given": "İlhan"
+    },
+    {
+     "family": "Feng",
+     "given": "Yu"
+    },
+    {
+     "family": "Moore",
+     "given": "Eric W."
+    },
+    {
+     "family": "VanderPlas",
+     "given": "Jake"
+    },
+    {
+     "family": "Laxalde",
+     "given": "Denis"
+    },
+    {
+     "family": "Perktold",
+     "given": "Josef"
+    },
+    {
+     "family": "Cimrman",
+     "given": "Robert"
+    },
+    {
+     "family": "Henriksen",
+     "given": "Ian"
+    },
+    {
+     "family": "Quintero",
+     "given": "E. A."
+    },
+    {
+     "family": "Harris",
+     "given": "Charles R."
+    },
+    {
+     "family": "Archibald",
+     "given": "Anne M."
+    },
+    {
+     "family": "Ribeiro",
+     "given": "Antônio H."
+    },
+    {
+     "family": "Pedregosa",
+     "given": "Fabian"
+    },
+    {
+     "family": "van Mulbregt",
+     "given": "Paul"
+    },
+    {
+     "name": "SciPy 1.0 Contributors"
+    },
+    {
+     "family": "Vijaykumar",
+     "given": "Aditya"
+    },
+    {
+     "family": "Bardelli",
+     "given": "Alessandro Pietro"
+    },
+    {
+     "family": "Rothberg",
+     "given": "Alex"
+    },
+    {
+     "family": "Hilboll",
+     "given": "Andreas"
+    },
+    {
+     "family": "Kloeckner",
+     "given": "Andreas"
+    },
+    {
+     "family": "Scopatz",
+     "given": "Anthony"
+    },
+    {
+     "family": "Lee",
+     "given": "Antony"
+    },
+    {
+     "family": "Rokem",
+     "given": "Ariel"
+    },
+    {
+     "family": "Woods",
+     "given": "C. Nathan"
+    },
+    {
+     "family": "Fulton",
+     "given": "Chad"
+    },
+    {
+     "family": "Masson",
+     "given": "Charles"
+    },
+    {
+     "family": "Häggström",
+     "given": "Christian"
+    },
+    {
+     "family": "Fitzgerald",
+     "given": "Clark"
+    },
+    {
+     "family": "Nicholson",
+     "given": "David A."
+    },
+    {
+     "family": "Hagen",
+     "given": "David R."
+    },
+    {
+     "family": "Pasechnik",
+     "given": "Dmitrii V."
+    },
+    {
+     "family": "Olivetti",
+     "given": "Emanuele"
+    },
+    {
+     "family": "Martin",
+     "given": "Eric"
+    },
+    {
+     "family": "Wieser",
+     "given": "Eric"
+    },
+    {
+     "family": "Silva",
+     "given": "Fabrice"
+    },
+    {
+     "family": "Lenders",
+     "given": "Felix"
+    },
+    {
+     "family": "Wilhelm",
+     "given": "Florian"
+    },
+    {
+     "family": "Young",
+     "given": "G."
+    },
+    {
+     "family": "Price",
+     "given": "Gavin A."
+    },
+    {
+     "family": "Ingold",
+     "given": "Gert-Ludwig"
+    },
+    {
+     "family": "Allen",
+     "given": "Gregory E."
+    },
+    {
+     "family": "Lee",
+     "given": "Gregory R."
+    },
+    {
+     "family": "Audren",
+     "given": "Hervé"
+    },
+    {
+     "family": "Probst",
+     "given": "Irvin"
+    },
+    {
+     "family": "Dietrich",
+     "given": "Jörg P."
+    },
+    {
+     "family": "Silterra",
+     "given": "Jacob"
+    },
+    {
+     "family": "Webber",
+     "given": "James T"
+    },
+    {
+     "family": "Slavič",
+     "given": "Janko"
+    },
+    {
+     "family": "Nothman",
+     "given": "Joel"
+    },
+    {
+     "family": "Buchner",
+     "given": "Johannes"
+    },
+    {
+     "family": "Kulick",
+     "given": "Johannes"
+    },
+    {
+     "family": "Schönberger",
+     "given": "Johannes L."
+    },
+    {
+     "family": "de Miranda Cardoso",
+     "given": "José Vinícius"
+    },
+    {
+     "family": "Reimer",
+     "given": "Joscha"
+    },
+    {
+     "family": "Harrington",
+     "given": "Joseph"
+    },
+    {
+     "family": "Rodríguez",
+     "given": "Juan Luis Cano"
+    },
+    {
+     "family": "Nunez-Iglesias",
+     "given": "Juan"
+    },
+    {
+     "family": "Kuczynski",
+     "given": "Justin"
+    },
+    {
+     "family": "Tritz",
+     "given": "Kevin"
+    },
+    {
+     "family": "Thoma",
+     "given": "Martin"
+    },
+    {
+     "family": "Newville",
+     "given": "Matthew"
+    },
+    {
+     "family": "Kümmerer",
+     "given": "Matthias"
+    },
+    {
+     "family": "Bolingbroke",
+     "given": "Maximilian"
+    },
+    {
+     "family": "Tartre",
+     "given": "Michael"
+    },
+    {
+     "family": "Pak",
+     "given": "Mikhail"
+    },
+    {
+     "family": "Smith",
+     "given": "Nathaniel J."
+    },
+    {
+     "family": "Nowaczyk",
+     "given": "Nikolai"
+    },
+    {
+     "family": "Shebanov",
+     "given": "Nikolay"
+    },
+    {
+     "family": "Pavlyk",
+     "given": "Oleksandr"
+    },
+    {
+     "family": "Brodtkorb",
+     "given": "Per A."
+    },
+    {
+     "family": "Lee",
+     "given": "Perry"
+    },
+    {
+     "family": "McGibbon",
+     "given": "Robert T."
+    },
+    {
+     "family": "Feldbauer",
+     "given": "Roman"
+    },
+    {
+     "family": "Lewis",
+     "given": "Sam"
+    },
+    {
+     "family": "Tygier",
+     "given": "Sam"
+    },
+    {
+     "family": "Sievert",
+     "given": "Scott"
+    },
+    {
+     "family": "Vigna",
+     "given": "Sebastiano"
+    },
+    {
+     "family": "Peterson",
+     "given": "Stefan"
+    },
+    {
+     "family": "More",
+     "given": "Surhud"
+    },
+    {
+     "family": "Pudlik",
+     "given": "Tadeusz"
+    },
+    {
+     "family": "Oshima",
+     "given": "Takuya"
+    },
+    {
+     "family": "Pingel",
+     "given": "Thomas J."
+    },
+    {
+     "family": "Robitaille",
+     "given": "Thomas P."
+    },
+    {
+     "family": "Spura",
+     "given": "Thomas"
+    },
+    {
+     "family": "Jones",
+     "given": "Thouis R."
+    },
+    {
+     "family": "Cera",
+     "given": "Tim"
+    },
+    {
+     "family": "Leslie",
+     "given": "Tim"
+    },
+    {
+     "family": "Zito",
+     "given": "Tiziano"
+    },
+    {
+     "family": "Krauss",
+     "given": "Tom"
+    },
+    {
+     "family": "Upadhyay",
+     "given": "Utkarsh"
+    },
+    {
+     "family": "Halchenko",
+     "given": "Yaroslav O."
+    },
+    {
+     "family": "Vázquez-Baeza",
+     "given": "Yoshiki"
+    }
+   ],
+   "journal": "Nature Methods",
+   "publisher": "",
+   "year": 2020,
+   "volume": "17",
+   "issue": "3",
+   "pages": "261-272",
+   "pmid": "32015543",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import",
+    "ecg-hrv",
+    "bp-resp",
+    "stim-dose-response"
+   ]
+  },
+  "10.1038/s41597-022-01202-y": {
+   "doi": "10.1038/s41597-022-01202-y",
+   "type": "article",
+   "title": "Autonomic aging – A dataset to quantify changes of cardiovascular autonomic function during healthy aging",
+   "authors": [
+    {
+     "family": "Schumann",
+     "given": "Andy"
+    },
+    {
+     "family": "Bär",
+     "given": "Karl-Jürgen"
+    }
+   ],
+   "journal": "Scientific Data",
+   "publisher": "",
+   "year": 2022,
+   "volume": "9",
+   "issue": "1",
+   "pages": "95",
+   "pmid": "35322044",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import",
+    "ecg-hrv",
+    "bp-resp",
+    "physio-report"
+   ]
+  },
+  "10.1038/sdata.2016.44": {
+   "doi": "10.1038/sdata.2016.44",
+   "type": "article",
+   "title": "The brain imaging data structure, a format for organizing and describing outputs of neuroimaging experiments",
+   "authors": [
+    {
+     "family": "Gorgolewski",
+     "given": "Krzysztof J."
+    },
+    {
+     "family": "Auer",
+     "given": "Tibor"
+    },
+    {
+     "family": "Calhoun",
+     "given": "Vince D."
+    },
+    {
+     "family": "Craddock",
+     "given": "R. Cameron"
+    },
+    {
+     "family": "Das",
+     "given": "Samir"
+    },
+    {
+     "family": "Duff",
+     "given": "Eugene P."
+    },
+    {
+     "family": "Flandin",
+     "given": "Guillaume"
+    },
+    {
+     "family": "Ghosh",
+     "given": "Satrajit S."
+    },
+    {
+     "family": "Glatard",
+     "given": "Tristan"
+    },
+    {
+     "family": "Halchenko",
+     "given": "Yaroslav O."
+    },
+    {
+     "family": "Handwerker",
+     "given": "Daniel A."
+    },
+    {
+     "family": "Hanke",
+     "given": "Michael"
+    },
+    {
+     "family": "Keator",
+     "given": "David"
+    },
+    {
+     "family": "Li",
+     "given": "Xiangrui"
+    },
+    {
+     "family": "Michael",
+     "given": "Zachary"
+    },
+    {
+     "family": "Maumet",
+     "given": "Camille"
+    },
+    {
+     "family": "Nichols",
+     "given": "B. Nolan"
+    },
+    {
+     "family": "Nichols",
+     "given": "Thomas E."
+    },
+    {
+     "family": "Pellman",
+     "given": "John"
+    },
+    {
+     "family": "Poline",
+     "given": "Jean-Baptiste"
+    },
+    {
+     "family": "Rokem",
+     "given": "Ariel"
+    },
+    {
+     "family": "Schaefer",
+     "given": "Gunnar"
+    },
+    {
+     "family": "Sochat",
+     "given": "Vanessa"
+    },
+    {
+     "family": "Triplett",
+     "given": "William"
+    },
+    {
+     "family": "Turner",
+     "given": "Jessica A."
+    },
+    {
+     "family": "Varoquaux",
+     "given": "Gaël"
+    },
+    {
+     "family": "Poldrack",
+     "given": "Russell A."
+    }
+   ],
+   "journal": "Scientific Data",
+   "publisher": "",
+   "year": 2016,
+   "volume": "3",
+   "issue": "1",
+   "pages": "160044",
+   "pmid": "27326542",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import",
+    "stim-events"
+   ]
+  },
+  "10.1080/03091902.2019.1640306": {
+   "doi": "10.1080/03091902.2019.1640306",
+   "type": "article",
+   "title": "A robust algorithm for heart rate variability time series artefact correction using novel beat classification",
+   "authors": [
+    {
+     "family": "Lipponen",
+     "given": "Jukka A."
+    },
+    {
+     "family": "Tarvainen",
+     "given": "Mika P."
+    }
+   ],
+   "journal": "Journal of Medical Engineering & Technology",
+   "publisher": "",
+   "year": 2019,
+   "volume": "43",
+   "issue": "3",
+   "pages": "173-181",
+   "pmid": "31314618",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "ecg-hrv"
+   ]
+  },
+  "10.1088/1361-6579/aad7e6": {
+   "doi": "10.1088/1361-6579/aad7e6",
+   "type": "article",
+   "title": "Optimized breath detection algorithm in electrical impedance tomography",
+   "authors": [
+    {
+     "family": "Khodadad",
+     "given": "D"
+    },
+    {
+     "family": "Nordebo",
+     "given": "S"
+    },
+    {
+     "family": "Müller",
+     "given": "B"
+    },
+    {
+     "family": "Waldmann",
+     "given": "A"
+    },
+    {
+     "family": "Yerworth",
+     "given": "R"
+    },
+    {
+     "family": "Becher",
+     "given": "T"
+    },
+    {
+     "family": "Frerichs",
+     "given": "I"
+    },
+    {
+     "family": "Sophocleous",
+     "given": "L"
+    },
+    {
+     "family": "van Kaam",
+     "given": "A"
+    },
+    {
+     "family": "Miedema",
+     "given": "M"
+    },
+    {
+     "family": "Seifnaraghi",
+     "given": "N"
+    },
+    {
+     "family": "Bayford",
+     "given": "R"
+    }
+   ],
+   "journal": "Physiological Measurement",
+   "publisher": "",
+   "year": 2018,
+   "volume": "39",
+   "issue": "9",
+   "pages": "094001",
+   "pmid": "30074906",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "bp-resp"
+   ]
+  },
+  "10.1088/1741-2552/ab7ad4": {
+   "doi": "10.1088/1741-2552/ab7ad4",
+   "type": "article",
+   "title": "Functional vagotopy in the cervical vagus nerve of the domestic pig: implications for the study of vagus nerve stimulation",
+   "authors": [
+    {
+     "family": "Settell",
+     "given": "Megan L"
+    },
+    {
+     "family": "Pelot",
+     "given": "Nicole A"
+    },
+    {
+     "family": "Knudsen",
+     "given": "Bruce E"
+    },
+    {
+     "family": "Dingle",
+     "given": "Aaron M"
+    },
+    {
+     "family": "McConico",
+     "given": "Andrea L"
+    },
+    {
+     "family": "Nicolai",
+     "given": "Evan N"
+    },
+    {
+     "family": "Trevathan",
+     "given": "James K"
+    },
+    {
+     "family": "Ezzell",
+     "given": "J Ashley"
+    },
+    {
+     "family": "Ross",
+     "given": "Erika K"
+    },
+    {
+     "family": "Gustafson",
+     "given": "Kenneth J"
+    },
+    {
+     "family": "Shoffstall",
+     "given": "Andrew J"
+    },
+    {
+     "family": "Williams",
+     "given": "Justin C"
+    },
+    {
+     "family": "Zeng",
+     "given": "Weifeng"
+    },
+    {
+     "family": "Poore",
+     "given": "Samuel O"
+    },
+    {
+     "family": "Populin",
+     "given": "Luis C"
+    },
+    {
+     "family": "Suminski",
+     "given": "Aaron J"
+    },
+    {
+     "family": "Grill",
+     "given": "Warren M"
+    },
+    {
+     "family": "Ludwig",
+     "given": "Kip A"
+    }
+   ],
+   "journal": "Journal of Neural Engineering",
+   "publisher": "IOP Publishing",
+   "year": 2020,
+   "volume": "17",
+   "issue": "2",
+   "pages": "026022",
+   "pmid": "32108590",
+   "url": "",
+   "repository": "",
+   "source": "Crossref",
+   "cited_by": [
+    "registry"
+   ]
+  },
+  "10.1088/1741-2552/ab9db8": {
+   "doi": "10.1088/1741-2552/ab9db8",
+   "type": "article",
+   "title": "Sources of off-target effects of vagus nerve stimulation using the helical clinical lead in domestic pigs",
+   "authors": [
+    {
+     "family": "Nicolai",
+     "given": "Evan N"
+    },
+    {
+     "family": "Settell",
+     "given": "Megan L"
+    },
+    {
+     "family": "Knudsen",
+     "given": "Bruce E"
+    },
+    {
+     "family": "McConico",
+     "given": "Andrea L"
+    },
+    {
+     "family": "Gosink",
+     "given": "Brian A"
+    },
+    {
+     "family": "Trevathan",
+     "given": "James K"
+    },
+    {
+     "family": "Baumgart",
+     "given": "Ian W"
+    },
+    {
+     "family": "Ross",
+     "given": "Erika K"
+    },
+    {
+     "family": "Pelot",
+     "given": "Nicole A"
+    },
+    {
+     "family": "Grill",
+     "given": "Warren M"
+    },
+    {
+     "family": "Gustafson",
+     "given": "Kenneth J"
+    },
+    {
+     "family": "Shoffstall",
+     "given": "Andrew J"
+    },
+    {
+     "family": "Williams",
+     "given": "Justin C"
+    },
+    {
+     "family": "Ludwig",
+     "given": "Kip A"
+    }
+   ],
+   "journal": "Journal of Neural Engineering",
+   "publisher": "IOP Publishing",
+   "year": 2020,
+   "volume": "17",
+   "issue": "4",
+   "pages": "046017",
+   "pmid": "32554888",
+   "url": "",
+   "repository": "",
+   "source": "Crossref",
+   "cited_by": [
+    "registry"
+   ]
+  },
+  "10.1088/1741-2552/acb3fd": {
+   "doi": "10.1088/1741-2552/acb3fd",
+   "type": "article",
+   "title": "Spatially selective stimulation of the pig vagus nerve to modulate target effect versus side effect",
+   "authors": [
+    {
+     "family": "Blanz",
+     "given": "Stephan L"
+    },
+    {
+     "family": "Musselman",
+     "given": "Eric D"
+    },
+    {
+     "family": "Settell",
+     "given": "Megan L"
+    },
+    {
+     "family": "Knudsen",
+     "given": "Bruce E"
+    },
+    {
+     "family": "Nicolai",
+     "given": "Evan N"
+    },
+    {
+     "family": "Trevathan",
+     "given": "James K"
+    },
+    {
+     "family": "Verner",
+     "given": "Ryan S"
+    },
+    {
+     "family": "Begnaud",
+     "given": "Jason"
+    },
+    {
+     "family": "Skubal",
+     "given": "Aaron C"
+    },
+    {
+     "family": "Suminski",
+     "given": "Aaron J"
+    },
+    {
+     "family": "Williams",
+     "given": "Justin C"
+    },
+    {
+     "family": "Shoffstall",
+     "given": "Andrew J"
+    },
+    {
+     "family": "Grill",
+     "given": "Warren M"
+    },
+    {
+     "family": "Pelot",
+     "given": "Nicole A"
+    },
+    {
+     "family": "Ludwig",
+     "given": "Kip A"
+    }
+   ],
+   "journal": "Journal of Neural Engineering",
+   "publisher": "IOP Publishing",
+   "year": 2023,
+   "volume": "20",
+   "issue": "1",
+   "pages": "016051",
+   "pmid": "36649655",
+   "url": "",
+   "repository": "",
+   "source": "Crossref",
+   "cited_by": [
+    "registry"
+   ]
+  },
+  "10.1101/2021.02.10.430563": {
+   "doi": "10.1101/2021.02.10.430563",
+   "type": "article",
+   "title": "SPARC Data Structure: Rationale and Design of a FAIR Standard for Biomedical Research Data",
+   "authors": [
+    {
+     "family": "Bandrowski",
+     "given": "Anita"
+    },
+    {
+     "family": "Grethe",
+     "given": "Jeffrey S."
+    },
+    {
+     "family": "Pilko",
+     "given": "Anna"
+    },
+    {
+     "family": "Gillespie",
+     "given": "Tom"
+    },
+    {
+     "family": "Pine",
+     "given": "Gabi"
+    },
+    {
+     "family": "Patel",
+     "given": "Bhavesh"
+    },
+    {
+     "family": "Surles-Zeigler",
+     "given": "Monique"
+    },
+    {
+     "family": "Martone",
+     "given": "Maryann E."
+    }
+   ],
+   "journal": "",
+   "publisher": "",
+   "year": 2021,
+   "volume": "",
+   "issue": "",
+   "pages": "",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import",
+    "stim-events"
+   ]
+  },
+  "10.1109/cic.2003.1291140": {
+   "doi": "10.1109/CIC.2003.1291140",
+   "type": "article",
+   "title": "An open-source algorithm to detect onset of arterial blood pressure pulses",
+   "authors": [
+    {
+     "family": "Zong",
+     "given": "W."
+    },
+    {
+     "family": "Heldt",
+     "given": "T."
+    },
+    {
+     "family": "Moody",
+     "given": "G.B."
+    },
+    {
+     "family": "Mark",
+     "given": "R.G."
+    }
+   ],
+   "journal": "Computers in Cardiology, 2003",
+   "publisher": "",
+   "year": 2003,
+   "volume": "30",
+   "issue": "",
+   "pages": "259-262",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "bp-resp"
+   ]
+  },
+  "10.1109/mcse.2007.55": {
+   "doi": "10.1109/MCSE.2007.55",
+   "type": "article",
+   "title": "Matplotlib: A 2D Graphics Environment",
+   "authors": [
+    {
+     "family": "Hunter",
+     "given": "John D."
+    }
+   ],
+   "journal": "Computing in Science & Engineering",
+   "publisher": "",
+   "year": 2007,
+   "volume": "9",
+   "issue": "3",
+   "pages": "90-95",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import",
+    "stim-events",
+    "stim-dose-response"
+   ]
+  },
+  "10.1109/memb.2009.934630": {
+   "doi": "10.1109/MEMB.2009.934630",
+   "type": "article",
+   "title": "Tuning of the sequence technique",
+   "authors": [
+    {
+     "family": "Laude",
+     "given": "D."
+    },
+    {
+     "family": "Baudrie",
+     "given": "V."
+    },
+    {
+     "family": "Elghozi",
+     "given": "J.-L."
+    }
+   ],
+   "journal": "IEEE Engineering in Medicine and Biology Magazine",
+   "publisher": "",
+   "year": 2009,
+   "volume": "28",
+   "issue": "6",
+   "pages": "30-34",
+   "pmid": "19914885",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "bp-resp"
+   ]
+  },
+  "10.1109/tac.1974.1100705": {
+   "doi": "10.1109/tac.1974.1100705",
+   "type": "article",
+   "title": "A new look at the statistical model identification",
+   "authors": [
+    {
+     "family": "Akaike",
+     "given": "H."
+    }
+   ],
+   "journal": "IEEE Transactions on Automatic Control",
+   "publisher": "",
+   "year": 1974,
+   "volume": "19",
+   "issue": "6",
+   "pages": "716-723",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "stim-dose-response"
+   ]
+  },
+  "10.1109/tbme.1985.325532": {
+   "doi": "10.1109/TBME.1985.325532",
+   "type": "article",
+   "title": "A Real-Time QRS Detection Algorithm",
+   "authors": [
+    {
+     "family": "Pan",
+     "given": "Jiapu"
+    },
+    {
+     "family": "Tompkins",
+     "given": "Willis J."
+    }
+   ],
+   "journal": "IEEE Transactions on Biomedical Engineering",
+   "publisher": "",
+   "year": 1985,
+   "volume": "BME-32",
+   "issue": "3",
+   "pages": "230-236",
+   "pmid": "3997178",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "ecg-hrv"
+   ]
+  },
+  "10.1111/j.1540-8159.2010.02841.x": {
+   "doi": "10.1111/j.1540-8159.2010.02841.x",
+   "type": "article",
+   "title": "A Quantitative Systematic Review of Normal Values for Short-Term Heart Rate Variability in Healthy Adults",
+   "authors": [
+    {
+     "family": "NUNAN",
+     "given": "DAVID"
+    },
+    {
+     "family": "SANDERCOCK",
+     "given": "GAVIN R. H."
+    },
+    {
+     "family": "BRODIE",
+     "given": "DAVID A."
+    }
+   ],
+   "journal": "Pacing and Clinical Electrophysiology",
+   "publisher": "",
+   "year": 2010,
+   "volume": "33",
+   "issue": "11",
+   "pages": "1407-1417",
+   "pmid": "20663071",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-report"
+   ]
+  },
+  "10.1113/expphysiol.2007.040733": {
+   "doi": "10.1113/expphysiol.2007.040733",
+   "type": "article",
+   "title": "Heart rate variability in mice: a theoretical and practical guide",
+   "authors": [
+    {
+     "family": "Thireau",
+     "given": "J."
+    },
+    {
+     "family": "Zhang",
+     "given": "B. L."
+    },
+    {
+     "family": "Poisson",
+     "given": "D."
+    },
+    {
+     "family": "Babuty",
+     "given": "D."
+    }
+   ],
+   "journal": "Experimental Physiology",
+   "publisher": "",
+   "year": 2007,
+   "volume": "93",
+   "issue": "1",
+   "pages": "83-94",
+   "pmid": "17911354",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "ecg-hrv",
+    "bp-resp"
+   ]
+  },
+  "10.1113/jp274678": {
+   "doi": "10.1113/jp274678",
+   "type": "article",
+   "title": "Defining the neural fulcrum for chronic vagus nerve stimulation: implications for integrated cardiac control",
+   "authors": [
+    {
+     "family": "Ardell",
+     "given": "Jeffrey L."
+    },
+    {
+     "family": "Nier",
+     "given": "Heath"
+    },
+    {
+     "family": "Hammer",
+     "given": "Matthew"
+    },
+    {
+     "family": "Southerland",
+     "given": "E. Marie"
+    },
+    {
+     "family": "Ardell",
+     "given": "Christopher L."
+    },
+    {
+     "family": "Beaumont",
+     "given": "Eric"
+    },
+    {
+     "family": "KenKnight",
+     "given": "Bruce H."
+    },
+    {
+     "family": "Armour",
+     "given": "J. Andrew"
+    }
+   ],
+   "journal": "The Journal of Physiology",
+   "publisher": "",
+   "year": 2017,
+   "volume": "595",
+   "issue": "22",
+   "pages": "6887-6903",
+   "pmid": "28862330",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "stim-dose-response"
+   ]
+  },
+  "10.1152/ajpheart.1988.254.2.h377": {
+   "doi": "10.1152/ajpheart.1988.254.2.H377",
+   "type": "article",
+   "title": "Evaluation of baroreceptor reflex by blood pressure monitoring in unanesthetized cats",
+   "authors": [
+    {
+     "family": "Bertinieri",
+     "given": "G."
+    },
+    {
+     "family": "Di Rienzo",
+     "given": "M."
+    },
+    {
+     "family": "Cavallazzi",
+     "given": "A."
+    },
+    {
+     "family": "Ferrari",
+     "given": "A. U."
+    },
+    {
+     "family": "Pedotti",
+     "given": "A."
+    },
+    {
+     "family": "Mancia",
+     "given": "G."
+    }
+   ],
+   "journal": "American Journal of Physiology-Heart and Circulatory Physiology",
+   "publisher": "",
+   "year": 1988,
+   "volume": "254",
+   "issue": "2",
+   "pages": "H377-H383",
+   "pmid": "3344828",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "bp-resp"
+   ]
+  },
+  "10.1152/ajpregu.00709.2002": {
+   "doi": "10.1152/ajpregu.00709.2002",
+   "type": "article",
+   "title": "Comparison of various techniques used to estimate spontaneous baroreflex sensitivity (the EuroBaVar study)",
+   "authors": [
+    {
+     "family": "Laude",
+     "given": "Dominique"
+    },
+    {
+     "family": "Elghozi",
+     "given": "Jean-Luc"
+    },
+    {
+     "family": "Girard",
+     "given": "Arlette"
+    },
+    {
+     "family": "Bellard",
+     "given": "Elisabeth"
+    },
+    {
+     "family": "Bouhaddi",
+     "given": "Malika"
+    },
+    {
+     "family": "Castiglioni",
+     "given": "Paolo"
+    },
+    {
+     "family": "Cerutti",
+     "given": "Catherine"
+    },
+    {
+     "family": "Cividjian",
+     "given": "Andrei"
+    },
+    {
+     "family": "Di Rienzo",
+     "given": "Marco"
+    },
+    {
+     "family": "Fortrat",
+     "given": "Jacques-Olivier"
+    },
+    {
+     "family": "Janssen",
+     "given": "Ben"
+    },
+    {
+     "family": "Karemaker",
+     "given": "John M."
+    },
+    {
+     "family": "Lefthériotis",
+     "given": "Georges"
+    },
+    {
+     "family": "Parati",
+     "given": "Gianfranco"
+    },
+    {
+     "family": "Persson",
+     "given": "Pontus B."
+    },
+    {
+     "family": "Porta",
+     "given": "Alberto"
+    },
+    {
+     "family": "Quintin",
+     "given": "Luc"
+    },
+    {
+     "family": "Regnard",
+     "given": "Jacques"
+    },
+    {
+     "family": "Rüdiger",
+     "given": "Heinz"
+    },
+    {
+     "family": "Stauss",
+     "given": "Harald M."
+    }
+   ],
+   "journal": "American Journal of Physiology-Regulatory, Integrative and Comparative Physiology",
+   "publisher": "",
+   "year": 2004,
+   "volume": "286",
+   "issue": "1",
+   "pages": "R226-R231",
+   "pmid": "14500269",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "bp-resp"
+   ]
+  },
+  "10.1152/ajpregu.1996.271.4.r1078": {
+   "doi": "10.1152/ajpregu.1996.271.4.R1078",
+   "type": "article",
+   "title": "Age-related alterations in the fractal scaling of cardiac interbeat interval dynamics",
+   "authors": [
+    {
+     "family": "Iyengar",
+     "given": "N."
+    },
+    {
+     "family": "Peng",
+     "given": "C. K."
+    },
+    {
+     "family": "Morin",
+     "given": "R."
+    },
+    {
+     "family": "Goldberger",
+     "given": "A. L."
+    },
+    {
+     "family": "Lipsitz",
+     "given": "L. A."
+    }
+   ],
+   "journal": "American Journal of Physiology-Regulatory, Integrative and Comparative Physiology",
+   "publisher": "",
+   "year": 1996,
+   "volume": "271",
+   "issue": "4",
+   "pages": "R1078-R1084",
+   "pmid": "8898003",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import",
+    "ecg-hrv",
+    "bp-resp",
+    "physio-report"
+   ]
+  },
+  "10.1161/01.cir.101.23.e215": {
+   "doi": "10.1161/01.CIR.101.23.e215",
+   "type": "article",
+   "title": "PhysioBank, PhysioToolkit, and PhysioNet",
+   "authors": [
+    {
+     "family": "Goldberger",
+     "given": "Ary L."
+    },
+    {
+     "family": "Amaral",
+     "given": "Luis A. N."
+    },
+    {
+     "family": "Glass",
+     "given": "Leon"
+    },
+    {
+     "family": "Hausdorff",
+     "given": "Jeffrey M."
+    },
+    {
+     "family": "Ivanov",
+     "given": "Plamen Ch."
+    },
+    {
+     "family": "Mark",
+     "given": "Roger G."
+    },
+    {
+     "family": "Mietus",
+     "given": "Joseph E."
+    },
+    {
+     "family": "Moody",
+     "given": "George B."
+    },
+    {
+     "family": "Peng",
+     "given": "Chung-Kang"
+    },
+    {
+     "family": "Stanley",
+     "given": "H. Eugene"
+    }
+   ],
+   "journal": "Circulation",
+   "publisher": "",
+   "year": 2000,
+   "volume": "101",
+   "issue": "23",
+   "pages": "e215-e220",
+   "pmid": "10851218",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import",
+    "ecg-hrv",
+    "bp-resp",
+    "physio-report"
+   ]
+  },
+  "10.1161/01.cir.93.5.1043": {
+   "doi": "10.1161/01.CIR.93.5.1043",
+   "type": "article",
+   "title": "Heart Rate Variability",
+   "authors": [
+    {
+     "name": "Task Force of the European Society of Cardiology and the North American Society of Pacing and Electrophysiology"
+    }
+   ],
+   "journal": "Circulation",
+   "publisher": "",
+   "year": 1996,
+   "volume": "93",
+   "issue": "5",
+   "pages": "1043-1065",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "ecg-hrv",
+    "bp-resp"
+   ]
+  },
+  "10.1161/01.hyp.12.2.214": {
+   "doi": "10.1161/01.HYP.12.2.214",
+   "type": "article",
+   "title": "Evaluation of the baroreceptor-heart rate reflex by 24-hour intra-arterial blood pressure monitoring in humans.",
+   "authors": [
+    {
+     "family": "Parati",
+     "given": "G"
+    },
+    {
+     "family": "Di Rienzo",
+     "given": "M"
+    },
+    {
+     "family": "Bertinieri",
+     "given": "G"
+    },
+    {
+     "family": "Pomidossi",
+     "given": "G"
+    },
+    {
+     "family": "Casadei",
+     "given": "R"
+    },
+    {
+     "family": "Groppelli",
+     "given": "A"
+    },
+    {
+     "family": "Pedotti",
+     "given": "A"
+    },
+    {
+     "family": "Zanchetti",
+     "given": "A"
+    },
+    {
+     "family": "Mancia",
+     "given": "G"
+    }
+   ],
+   "journal": "Hypertension",
+   "publisher": "",
+   "year": 1988,
+   "volume": "12",
+   "issue": "2",
+   "pages": "214-222",
+   "pmid": "3410530",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "bp-resp"
+   ]
+  },
+  "10.1161/01.hyp.37.3.911": {
+   "doi": "10.1161/01.HYP.37.3.911",
+   "type": "article",
+   "title": "Determinants of Spontaneous Baroreflex Sensitivity in a Healthy Working Population",
+   "authors": [
+    {
+     "family": "Kardos",
+     "given": "Attila"
+    },
+    {
+     "family": "Watterich",
+     "given": "Gusztáv"
+    },
+    {
+     "family": "de Menezes",
+     "given": "Renee"
+    },
+    {
+     "family": "Csanády",
+     "given": "Miklós"
+    },
+    {
+     "family": "Casadei",
+     "given": "Barbara"
+    },
+    {
+     "family": "Rudas",
+     "given": "László"
+    }
+   ],
+   "journal": "Hypertension",
+   "publisher": "",
+   "year": 2001,
+   "volume": "37",
+   "issue": "3",
+   "pages": "911-916",
+   "pmid": "11244017",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "bp-resp",
+    "physio-report"
+   ]
+  },
+  "10.1186/s42234-023-00107-4": {
+   "doi": "10.1186/s42234-023-00107-4",
+   "type": "article",
+   "title": "Measuring and modeling the effects of vagus nerve stimulation on heart rate and laryngeal muscles",
+   "authors": [
+    {
+     "family": "Huffman",
+     "given": "William J."
+    },
+    {
+     "family": "Musselman",
+     "given": "Eric D."
+    },
+    {
+     "family": "Pelot",
+     "given": "Nicole A."
+    },
+    {
+     "family": "Grill",
+     "given": "Warren M."
+    }
+   ],
+   "journal": "Bioelectronic Medicine",
+   "publisher": "",
+   "year": 2023,
+   "volume": "9",
+   "issue": "1",
+   "pages": "3",
+   "pmid": "36797733",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "stim-dose-response"
+   ]
+  },
+  "10.1214/aos/1176344552": {
+   "doi": "10.1214/aos/1176344552",
+   "type": "article",
+   "title": "Bootstrap Methods: Another Look at the Jackknife",
+   "authors": [
+    {
+     "family": "Efron",
+     "given": "B."
+    }
+   ],
+   "journal": "The Annals of Statistics",
+   "publisher": "",
+   "year": 1979,
+   "volume": "7",
+   "issue": "1",
+   "pages": "1-26",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "stim-dose-response"
+   ]
+  },
+  "10.13026/2hsy-t491": {
+   "doi": "10.13026/2hsy-t491",
+   "type": "data",
+   "title": "Autonomic Aging: A dataset to quantify changes of cardiovascular autonomic function during healthy aging",
+   "authors": [
+    {
+     "family": "Schumann",
+     "given": "Andy"
+    },
+    {
+     "family": "Bär",
+     "given": "Karl"
+    }
+   ],
+   "journal": "",
+   "publisher": "PhysioNet",
+   "year": 2021,
+   "volume": "",
+   "issue": "",
+   "pages": "",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import",
+    "ecg-hrv",
+    "bp-resp",
+    "physio-report"
+   ]
+  },
+  "10.13026/9njx-6322": {
+   "doi": "10.13026/9njx-6322",
+   "type": "software",
+   "title": "Waveform Database Software Package (WFDB) for Python",
+   "authors": [
+    {
+     "family": "Xie",
+     "given": "Chen"
+    },
+    {
+     "family": "McCullum",
+     "given": "Lucas"
+    },
+    {
+     "family": "Johnson",
+     "given": "Alistair"
+    },
+    {
+     "family": "Pollard",
+     "given": "Tom"
+    },
+    {
+     "family": "Gow",
+     "given": "Brian"
+    },
+    {
+     "family": "Moody",
+     "given": "Benjamin"
+    }
+   ],
+   "journal": "",
+   "publisher": "PhysioNet",
+   "year": 2023,
+   "volume": "",
+   "issue": "",
+   "pages": "",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import",
+    "ecg-hrv",
+    "bp-resp"
+   ]
+  },
+  "10.13026/c2rg61": {
+   "doi": "10.13026/C2RG61",
+   "type": "data",
+   "title": "Fantasia Database",
+   "authors": [
+    {
+     "family": "Iyengar",
+     "given": "Nikhil"
+    },
+    {
+     "family": "Peng",
+     "given": "C-K"
+    },
+    {
+     "family": "Morin",
+     "given": "Raymond"
+    },
+    {
+     "family": "Goldberger",
+     "given": "Ary L"
+    },
+    {
+     "family": "Lipsitz",
+     "given": "Lewis A"
+    }
+   ],
+   "journal": "",
+   "publisher": "physionet.org",
+   "year": 1994,
+   "volume": "",
+   "issue": "",
+   "pages": "",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import",
+    "ecg-hrv",
+    "bp-resp",
+    "physio-report"
+   ]
+  },
+  "10.1371/journal.pone.0134387": {
+   "doi": "10.1371/journal.pone.0134387",
+   "type": "article",
+   "title": "Heart Rate Variability Analysis in an Experimental Model of Hemorrhagic Shock and Resuscitation in Pigs",
+   "authors": [
+    {
+     "family": "Salomão",
+     "given": "Edgard"
+    },
+    {
+     "family": "Otsuki",
+     "given": "Denise Aya"
+    },
+    {
+     "family": "Correa",
+     "given": "Andre Luis"
+    },
+    {
+     "family": "Fantoni",
+     "given": "Denise Tabacchi"
+    },
+    {
+     "family": "dos Santos",
+     "given": "Fernando"
+    },
+    {
+     "family": "Irigoyen",
+     "given": "Maria Claudia"
+    },
+    {
+     "family": "Auler",
+     "given": "Jose Otavio Costa"
+    }
+   ],
+   "journal": "PLOS ONE",
+   "publisher": "",
+   "year": 2015,
+   "volume": "10",
+   "issue": "8",
+   "pages": "e0134387",
+   "pmid": "26247476",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "ecg-hrv",
+    "bp-resp"
+   ]
+  },
+  "10.18112/openneuro.ds001242.v1.0.0": {
+   "doi": "10.18112/openneuro.ds001242.v1.0.0",
+   "type": "data",
+   "title": "Examining effects of arousal on responses to salient and non-salient stimuli in younger and older adults",
+   "authors": [
+    {
+     "name": "Tae-Ho Lee"
+    },
+    {
+     "name": "Steven Greening"
+    },
+    {
+     "name": "Taiji Ueno"
+    },
+    {
+     "name": "David Clewett"
+    },
+    {
+     "name": "Allison Ponzio"
+    },
+    {
+     "name": "Michiko Sakaki"
+    },
+    {
+     "name": "Mara Mather"
+    }
+   ],
+   "journal": "",
+   "publisher": "OpenNeuro",
+   "year": 2019,
+   "volume": "",
+   "issue": "",
+   "pages": "",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import"
+   ]
+  },
+  "10.25080/majora-92bf1922-00a": {
+   "doi": "10.25080/Majora-92bf1922-00a",
+   "type": "conference-paper",
+   "title": "Data Structures for Statistical Computing in Python",
+   "authors": [
+    {
+     "family": "McKinney",
+     "given": "Wes"
+    }
+   ],
+   "journal": "Proceedings of the Python in Science Conference",
+   "publisher": "",
+   "year": 2010,
+   "volume": "",
+   "issue": "",
+   "pages": "56-61",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import",
+    "stim-dose-response"
+   ]
+  },
+  "10.25080/majora-92bf1922-011": {
+   "doi": "10.25080/majora-92bf1922-011",
+   "type": "conference-paper",
+   "title": "Statsmodels: Econometric and Statistical Modeling with Python",
+   "authors": [
+    {
+     "family": "Seabold",
+     "given": "Skipper"
+    },
+    {
+     "family": "Perktold",
+     "given": "Josef"
+    }
+   ],
+   "journal": "",
+   "publisher": "",
+   "year": 2010,
+   "volume": "",
+   "issue": "",
+   "pages": "92-96",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "stim-dose-response"
+   ]
+  },
+  "10.26275/5cwo-mkpz": {
+   "doi": "10.26275/5cwo-mkpz",
+   "type": "data",
+   "title": "Single-electrode bidirectional control of heart rate via vagus nerve modulation in rat model",
+   "authors": [
+    {
+     "family": "Bender",
+     "given": "Shane A"
+    },
+    {
+     "family": "Green",
+     "given": "David B"
+    },
+    {
+     "family": "Thakkar",
+     "given": "Varun S"
+    },
+    {
+     "family": "Zimmerman",
+     "given": "Hope L"
+    },
+    {
+     "family": "Elazab",
+     "given": "Mohamed"
+    },
+    {
+     "family": "Kilgore",
+     "given": "Kevin L"
+    },
+    {
+     "family": "Vrabec",
+     "given": "Tina L"
+    }
+   ],
+   "journal": "",
+   "publisher": "SPARC Portal",
+   "year": 2026,
+   "volume": "",
+   "issue": "",
+   "pages": "",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import",
+    "stim-events",
+    "ecg-hrv",
+    "bp-resp",
+    "stim-dose-response"
+   ]
+  },
+  "10.26275/dm5l-tspb": {
+   "doi": "10.26275/dm5l-tspb",
+   "type": "data",
+   "title": "Influence of vagus nerve stimulation on cardiac activity in pigs",
+   "authors": [
+    {
+     "family": "Armitage",
+     "given": "Oliver"
+    },
+    {
+     "family": "Sarkans",
+     "given": "Elvijs"
+    },
+    {
+     "family": "Wernisch",
+     "given": "Lorenz"
+    },
+    {
+     "family": "Fortier-Poisson",
+     "given": "Pascal"
+    },
+    {
+     "family": "Berthon",
+     "given": "Antonin"
+    },
+    {
+     "family": "Tessier-Larivière",
+     "given": "Olivier"
+    }
+   ],
+   "journal": "",
+   "publisher": "SPARC Portal",
+   "year": 2023,
+   "volume": "",
+   "issue": "",
+   "pages": "",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import",
+    "stim-events",
+    "ecg-hrv",
+    "bp-resp",
+    "stim-dose-response",
+    "physio-report"
+   ]
+  },
+  "10.26275/nung-b9bm": {
+   "doi": "10.26275/nung-b9bm",
+   "type": "data",
+   "title": "Best parameters of heart rate variability for assessing autonomic responses to brief rectal distention in patients with irritable bowel syndrome",
+   "authors": [
+    {
+     "family": "Ali",
+     "given": "M Khawar"
+    },
+    {
+     "family": "Gong",
+     "given": "Shiyuan"
+    },
+    {
+     "family": "Nojkov",
+     "given": "Borko"
+    },
+    {
+     "family": "Burnett",
+     "given": "Colin"
+    },
+    {
+     "family": "Chen",
+     "given": "Jiande D"
+    }
+   ],
+   "journal": "",
+   "publisher": "SPARC Portal",
+   "year": 2024,
+   "volume": "",
+   "issue": "",
+   "pages": "",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import",
+    "ecg-hrv"
+   ]
+  },
+  "10.26275/qh3q-elj6": {
+   "doi": "10.26275/qh3q-elj6",
+   "type": "data",
+   "title": "Influence of left vagal stimulus pulse parameters on vagal and gastric activity in rat",
+   "authors": [
+    {
+     "family": "Ward",
+     "given": "Matthew"
+    },
+    {
+     "family": "Nowak",
+     "given": "Thomas V"
+    },
+    {
+     "family": "Phillips",
+     "given": "Robert"
+    },
+    {
+     "family": "Tan",
+     "given": "Zhenjun"
+    },
+    {
+     "family": "Powley",
+     "given": "Terry L"
+    }
+   ],
+   "journal": "",
+   "publisher": "SPARC Portal",
+   "year": 2020,
+   "volume": "",
+   "issue": "",
+   "pages": "",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import"
+   ]
+  },
+  "10.3389/fninf.2014.00010": {
+   "doi": "10.3389/fninf.2014.00010",
+   "type": "article",
+   "title": "Neo: an object model for handling electrophysiology data in multiple formats",
+   "authors": [
+    {
+     "family": "Garcia",
+     "given": "Samuel"
+    },
+    {
+     "family": "Guarino",
+     "given": "Domenico"
+    },
+    {
+     "family": "Jaillet",
+     "given": "Florent"
+    },
+    {
+     "family": "Jennings",
+     "given": "Todd"
+    },
+    {
+     "family": "Pröpper",
+     "given": "Robert"
+    },
+    {
+     "family": "Rautenberg",
+     "given": "Philipp L."
+    },
+    {
+     "family": "Rodgers",
+     "given": "Chris C."
+    },
+    {
+     "family": "Sobolev",
+     "given": "Andrey"
+    },
+    {
+     "family": "Wachtler",
+     "given": "Thomas"
+    },
+    {
+     "family": "Yger",
+     "given": "Pierre"
+    },
+    {
+     "family": "Davison",
+     "given": "Andrew P."
+    }
+   ],
+   "journal": "Frontiers in Neuroinformatics",
+   "publisher": "",
+   "year": 2014,
+   "volume": "8",
+   "issue": "",
+   "pages": "10",
+   "pmid": "24600386",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import"
+   ]
+  },
+  "10.3389/fphys.2018.01390": {
+   "doi": "10.3389/fphys.2018.01390",
+   "type": "article",
+   "title": "PhysioZoo: A Novel Open Access Platform for Heart Rate Variability Analysis of Mammalian Electrocardiographic Data",
+   "authors": [
+    {
+     "family": "Behar",
+     "given": "Joachim A."
+    },
+    {
+     "family": "Rosenberg",
+     "given": "Aviv A."
+    },
+    {
+     "family": "Weiser-Bitoun",
+     "given": "Ido"
+    },
+    {
+     "family": "Shemla",
+     "given": "Ori"
+    },
+    {
+     "family": "Alexandrovich",
+     "given": "Alexandra"
+    },
+    {
+     "family": "Konyukhov",
+     "given": "Eugene"
+    },
+    {
+     "family": "Yaniv",
+     "given": "Yael"
+    }
+   ],
+   "journal": "Frontiers in Physiology",
+   "publisher": "",
+   "year": 2018,
+   "volume": "9",
+   "issue": "",
+   "pages": "1390",
+   "pmid": "30337883",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "ecg-hrv",
+    "bp-resp"
+   ]
+  },
+  "10.3389/fphys.2023.1170320": {
+   "doi": "10.3389/fphys.2023.1170320",
+   "type": "article",
+   "title": "Sex differences in heart rate and heart rate variability in rats: Implications for translational research",
+   "authors": [
+    {
+     "family": "Carnevali",
+     "given": "Luca"
+    },
+    {
+     "family": "Barbetti",
+     "given": "Margherita"
+    },
+    {
+     "family": "Statello",
+     "given": "Rosario"
+    },
+    {
+     "family": "Williams",
+     "given": "DeWayne P."
+    },
+    {
+     "family": "Thayer",
+     "given": "Julian F."
+    },
+    {
+     "family": "Sgoifo",
+     "given": "Andrea"
+    }
+   ],
+   "journal": "Frontiers in Physiology",
+   "publisher": "",
+   "year": 2023,
+   "volume": "14",
+   "issue": "",
+   "pages": "1170320",
+   "pmid": "37035663",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "ecg-hrv",
+    "bp-resp"
+   ]
+  },
+  "10.3389/fphys.2023.1185744": {
+   "doi": "10.3389/fphys.2023.1185744",
+   "type": "article",
+   "title": "Effects of chronic secondhand smoke exposure on cardiovascular regulation and the role of soluble epoxide hydrolase in mice",
+   "authors": [
+    {
+     "family": "Pan",
+     "given": "Shiyue"
+    },
+    {
+     "family": "Karey",
+     "given": "Emma"
+    },
+    {
+     "family": "Nieves-Cintron",
+     "given": "Madeline"
+    },
+    {
+     "family": "Chen",
+     "given": "Yi-Je"
+    },
+    {
+     "family": "Hwang",
+     "given": "Sung Hee"
+    },
+    {
+     "family": "Hammock",
+     "given": "Bruce D."
+    },
+    {
+     "family": "Pinkerton",
+     "given": "Kent E."
+    },
+    {
+     "family": "Chen",
+     "given": "Chao-Yin"
+    }
+   ],
+   "journal": "Frontiers in Physiology",
+   "publisher": "",
+   "year": 2023,
+   "volume": "14",
+   "issue": "",
+   "pages": "1185744",
+   "pmid": "37362438",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "bp-resp"
+   ]
+  },
+  "10.3389/fpubh.2017.00258": {
+   "doi": "10.3389/fpubh.2017.00258",
+   "type": "article",
+   "title": "An Overview of Heart Rate Variability Metrics and Norms",
+   "authors": [
+    {
+     "family": "Shaffer",
+     "given": "Fred"
+    },
+    {
+     "family": "Ginsberg",
+     "given": "J. P."
+    }
+   ],
+   "journal": "Frontiers in Public Health",
+   "publisher": "",
+   "year": 2017,
+   "volume": "5",
+   "issue": "",
+   "pages": "258",
+   "pmid": "29034226",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "ecg-hrv",
+    "physio-report"
+   ]
+  },
+  "10.3758/s13428-020-01516-y": {
+   "doi": "10.3758/s13428-020-01516-y",
+   "type": "article",
+   "title": "NeuroKit2: A Python toolbox for neurophysiological signal processing",
+   "authors": [
+    {
+     "family": "Makowski",
+     "given": "Dominique"
+    },
+    {
+     "family": "Pham",
+     "given": "Tam"
+    },
+    {
+     "family": "Lau",
+     "given": "Zen J."
+    },
+    {
+     "family": "Brammer",
+     "given": "Jan C."
+    },
+    {
+     "family": "Lespinasse",
+     "given": "François"
+    },
+    {
+     "family": "Pham",
+     "given": "Hung"
+    },
+    {
+     "family": "Schölzel",
+     "given": "Christopher"
+    },
+    {
+     "family": "Chen",
+     "given": "S. H. Annabel"
+    }
+   ],
+   "journal": "Behavior Research Methods",
+   "publisher": "",
+   "year": 2021,
+   "volume": "53",
+   "issue": "4",
+   "pages": "1689-1696",
+   "pmid": "33528817",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "ecg-hrv",
+    "bp-resp"
+   ]
+  },
+  "10.5281/zenodo.3374011": {
+   "doi": "10.5281/zenodo.3374011",
+   "type": "software",
+   "title": "uwmadison-chm/bioread: 2.1.2",
+   "authors": [
+    {
+     "family": "Vack",
+     "given": "Nate"
+    },
+    {
+     "family": "Ollinger",
+     "given": "John"
+    },
+    {
+     "family": "Fitch",
+     "given": "Dan"
+    },
+    {
+     "family": "Davison",
+     "given": "Mike"
+    }
+   ],
+   "journal": "",
+   "publisher": "Zenodo",
+   "year": 2020,
+   "volume": "",
+   "issue": "",
+   "pages": "",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import"
+   ]
+  },
+  "10.5281/zenodo.3492211": {
+   "doi": "10.5281/zenodo.3492211",
+   "type": "software",
+   "title": "holgern/pyedflib: v0.1.42",
+   "authors": [
+    {
+     "name": "Holger"
+    },
+    {
+     "name": "Simon Kern"
+    },
+    {
+     "name": "Dimitri Papadopoulos Orfanos"
+    },
+    {
+     "name": "Raphael Vallat"
+    },
+    {
+     "name": "Clemens Brunner"
+    },
+    {
+     "name": "Luca Cerina"
+    },
+    {
+     "name": "Stefan Appelhoff"
+    },
+    {
+     "name": "David T.H. Kao"
+    },
+    {
+     "name": "Craig Franklin"
+    },
+    {
+     "name": "Florian Hofer"
+    },
+    {
+     "name": "bitterisland07"
+    },
+    {
+     "name": "myd7349"
+    },
+    {
+     "name": "Marijn van Vliet"
+    },
+    {
+     "name": "Jukka Zitting"
+    },
+    {
+     "name": "Guillaume Cathelain"
+    },
+    {
+     "name": "David Ojeda"
+    },
+    {
+     "name": "Chadwick Boulay"
+    },
+    {
+     "name": "Blake"
+    },
+    {
+     "name": "Ben Beasley"
+    },
+    {
+     "name": "Iztok Fister Jr."
+    },
+    {
+     "name": "Emmanuel Ferdman"
+    },
+    {
+     "name": "John Mongan"
+    },
+    {
+     "name": "Wouter Potters"
+    },
+    {
+     "name": "WEN Hao"
+    },
+    {
+     "name": "Ogi Moore"
+    },
+    {
+     "name": "Matthias Klumpp"
+    },
+    {
+     "name": "Matteo"
+    },
+    {
+     "name": "Mmadu Manasseh"
+    },
+    {
+     "name": "Joseph"
+    },
+    {
+     "name": "Jacob Svensson"
+    }
+   ],
+   "journal": "",
+   "publisher": "Zenodo",
+   "year": 2025,
+   "volume": "",
+   "issue": "",
+   "pages": "",
+   "pmid": "",
+   "url": "",
+   "repository": "https://github.com/holgern/pyedflib",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import"
+   ]
+  },
+  "10.5281/zenodo.3509134": {
+   "doi": "10.5281/zenodo.3509134",
+   "type": "software",
+   "title": "pandas-dev/pandas: Pandas",
+   "authors": [
+    {
+     "name": "The pandas development team"
+    }
+   ],
+   "journal": "",
+   "publisher": "Zenodo",
+   "year": 2026,
+   "volume": "",
+   "issue": "",
+   "pages": "",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import"
+   ]
+  },
+  "10.5281/zenodo.3686061": {
+   "doi": "10.5281/zenodo.3686061",
+   "type": "software",
+   "title": "The Brain Imaging Data Structure (BIDS) Specification",
+   "authors": [
+    {
+     "name": "BIDS-contributors"
+    }
+   ],
+   "journal": "",
+   "publisher": "Zenodo",
+   "year": 2022,
+   "volume": "",
+   "issue": "",
+   "pages": "",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import"
+   ]
+  },
+  "10.7554/elife.78362": {
+   "doi": "10.7554/eLife.78362",
+   "type": "article",
+   "title": "The Neurodata Without Borders ecosystem for neurophysiological data science",
+   "authors": [
+    {
+     "family": "Rübel",
+     "given": "Oliver"
+    },
+    {
+     "family": "Tritt",
+     "given": "Andrew"
+    },
+    {
+     "family": "Ly",
+     "given": "Ryan"
+    },
+    {
+     "family": "Dichter",
+     "given": "Benjamin K"
+    },
+    {
+     "family": "Ghosh",
+     "given": "Satrajit"
+    },
+    {
+     "family": "Niu",
+     "given": "Lawrence"
+    },
+    {
+     "family": "Baker",
+     "given": "Pamela"
+    },
+    {
+     "family": "Soltesz",
+     "given": "Ivan"
+    },
+    {
+     "family": "Ng",
+     "given": "Lydia"
+    },
+    {
+     "family": "Svoboda",
+     "given": "Karel"
+    },
+    {
+     "family": "Frank",
+     "given": "Loren"
+    },
+    {
+     "family": "Bouchard",
+     "given": "Kristofer E"
+    }
+   ],
+   "journal": "eLife",
+   "publisher": "",
+   "year": 2022,
+   "volume": "11",
+   "issue": "",
+   "pages": "e78362",
+   "pmid": "36193886",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "physio-import",
+    "stim-events",
+    "ecg-hrv",
+    "bp-resp",
+    "stim-dose-response"
+   ]
+  }
+ }
+}

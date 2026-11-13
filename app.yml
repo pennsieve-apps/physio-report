@@ -1,0 +1,115 @@
+# yaml-language-server: $schema=https://schemas.pennsieve.io/app-manifest/v1.json
+schemaVersion: "1.0"
+application:
+  name: Physiology Report
+  description: >-
+    The last step of both cardiovascular and autonomic physiology workflows (Cardiovascular Response to
+    Nerve Stimulation; Heart Rate Variability and Baroreflex). Link any of physio-import's quality
+    checks, stim-events, ecg-hrv, bp-resp and stim-dose-response and get one report a physiologist can
+    read and share, as an offline HTML page and a PDF: the recordings (subject, species, duration,
+    signals present, which steps skipped which recording and why), signal quality, key results (resting
+    heart rate and HRV, blood pressure and baroreflex sensitivity next to published reference values for
+    healthy adults, thresholds, EC50 and the neural fulcrum per subject), then one section per step with
+    its method caveat, headline numbers, every figure with the step's caption, warnings, licence
+    notices, methods, software versions and references, plus a tables folder with the key tables. Works
+    with whichever steps are linked, for any species. Copies the steps' numbers and captions; does not
+    recompute them. Research output, not a clinical finding.
+  type: processor
+  tags:
+    - physiology
+    - autonomic
+    - cardiovascular
+    - ecg
+    - heart-rate-variability
+    - blood-pressure
+    - baroreflex
+    - respiration
+    - neuromodulation
+    - nerve-stimulation
+    - dose-response
+    - quality-control
+    - report
+runtime:
+  # Measured (linux/amd64 under emulation on an M-series Mac, read-only root, uid 65534, --memory 2g):
+  # see README "Runtime". Lambda-eligible as sized; 2048 MiB is the smallest Fargate size for 1 vCPU
+  # that leaves room for the PDF layout.
+  cpu: 1024
+  memory: 2048
+  computeTypes:
+    - standard
+  timeoutSeconds: 900
+parameters:
+  - name: REPORT_TITLE
+    type: string
+    label: Report title
+    description: >-
+      Title of the report. Empty gives "Physiology report: <workflow>" (the workflow is recognised from
+      the linked steps).
+    defaultValue: ""
+  - name: MAX_FIGURES
+    type: integer
+    label: Figures per step
+    description: >-
+      Figures shown per step in the HTML page and the PDF, in the order the step listed them. The others
+      are copied next to the page and linked from it. 0 shows none.
+    defaultValue: 40
+    min: 0
+  - name: DATASET_DOIS
+    type: string
+    label: Dataset DOIs
+    description: >-
+      DOIs of the datasets analysed (comma-separated), credited and cited with the works their authors ask
+      to be cited with them. The demo datasets are also recognised from physio-import's source paths.
+    defaultValue: ""
+  - name: WRITE_PDF
+    type: boolean
+    label: Write the PDF
+    description: Also write report.pdf (the same content as the HTML page).
+    defaultValue: true
+inputs:
+  - name: qc
+    description: >-
+      physio-import's qc output (physio-import/summary.json, qc.csv, nwbinspector.csv, overview figures,
+      provenance.json): signal quality, durations, channel types and species of every recording.
+    mediaTypes: [text/csv, image/png, application/json]
+    placement: subfolder
+    required: false
+  - name: events
+    description: stim-events output (stim-events/summary.json, events.tsv, stim_summary.csv, qc.csv, timeline figures).
+    mediaTypes: [text/csv, text/tab-separated-values, image/png, application/json]
+    placement: subfolder
+    required: false
+  - name: hrv
+    description: ecg-hrv output (ecg-hrv/summary.json, hrv.csv, beats.csv, series.csv, qc.csv, figures).
+    mediaTypes: [text/csv, image/png, application/json]
+    placement: subfolder
+    required: false
+  - name: bp
+    description: bp-resp output (bp-resp/summary.json, bp_beats.csv, breaths.csv, brs.csv, rsa.csv, series.csv, figures).
+    mediaTypes: [text/csv, image/png, application/json]
+    placement: subfolder
+    required: false
+  - name: responses
+    description: >-
+      stim-dose-response output (stim-dose-response/summary.json, responses.csv, fits.csv, surface.csv,
+      fulcrum.csv, figures).
+    mediaTypes: [text/csv, image/png, application/json]
+    placement: subfolder
+    required: false
+# One output: it is the whole OUTPUT_DIR; everything is under physio-report/.
+outputs:
+  - name: report
+    description: >-
+      physio-report/: report.html (inline CSS, no scripts, figures in figures/<step>/ next to it; opens
+      offline), report.pdf, tables/ (recordings.csv, overview.csv, headline.csv, qc_summary.csv,
+      resting_hrv.csv, resting_bp.csv, reference_values.csv, dose_response.csv, fulcrum.csv, and a copy of
+      every table each step wrote under tables/<step>/), summary.json, provenance.json.
+    mediaTypes: [text/html, application/pdf, image/png, text/csv, text/tab-separated-values, application/json]
+
+# How a release is tested before it is made public: the inputs a review run uses.
+# See app-deploy-service docs/app-manifest-review.md.
+review:
+  version: 1
+  generate:
+    command: python -m tests.make_fixture "$REVIEW_INPUT_DIR" --layout linked
+    root: linked
