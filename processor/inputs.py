@@ -10,7 +10,8 @@ Find what is linked into the report under INPUT_DIR.
 - physio-import's `physio` port, when it is linked as well (it is not one of the report's ports,
   but a user may merge it in): `recordings.csv` and `channels.csv` at its root, with
   physio-import's provenance.json next to them and no summary.json. Read for the recordings table;
-  its sub-*/ folders (the NWB files) are never descended into.
+  its sub-*/ folders (the NWB files) are never descended into. physio-import's qc port carries
+  copies of both tables in its top folder; they are read the same way.
 """
 from __future__ import annotations
 
@@ -57,6 +58,7 @@ class Dataset:
     recordings: list[dict[str, str]]
     channels: list[dict[str, str]]
     provenance: dict[str, Any]
+    in_step: bool = False     # the copies in physio-import's qc port (copied with the step's tables)
 
 
 @dataclass
@@ -130,6 +132,11 @@ def find(input_dir: Path) -> Found:
             if app == SELF:
                 continue  # a previous report linked back in
             step = Step(app=app, folder=d, rel=rel, provenance=prov or {}, summary=summ or {})
+            if app == "physio-import" and "recordings.csv" in files:
+                # physio-import's qc port carries copies of recordings.csv and channels.csv.
+                datasets.append(Dataset(folder=d, rel=rel, recordings=read_table(files["recordings.csv"]),
+                                        channels=read_table(files["channels.csv"]) if "channels.csv" in files else [],
+                                        provenance=prov or {}, in_step=True))
             if prov is None:
                 step.problems.append("no provenance.json in the app's top folder")
             elif summ and isinstance(summ.get("app"), str) and summ["app"] != prov.get("app"):

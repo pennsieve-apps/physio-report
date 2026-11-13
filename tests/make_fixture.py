@@ -13,14 +13,18 @@ Three recordings:
   with amplitude; stim-dose-response fits a threshold and EC50 and finds a fulcrum at 30 Hz.
 
 Deliberate quirks the tests rely on: stim-events declares a test `licence_notice` (with a link and
-a DOI); physio-import's qc summary lists tables outside its top folder (`../../physio/...`) and its
-provenance lists a skipped input file by path among the recordings (both as the real app does); stim-events and stim-dose-response skip the human recordings (no stimulation);
-one ecg-hrv figure path is relative to the port folder (`ecg-hrv/figures/...`).
+a DOI); physio-import lists a skipped input file in `skipped_files` and keeps CRITICAL NWB Inspector
+messages about missing subject metadata (as the real app does); stim-events and stim-dose-response
+skip the human recordings (no stimulation); stim-dose-response has an upper-bound threshold, a fit
+blanked because the response changes sign, and a group with one tested level; bp-resp flags a
+pressure level step, a drift and a channel choice; one ecg-hrv figure path is relative to the port
+folder (`ecg-hrv/figures/...`).
 
     python -m tests.make_fixture OUT [--layout linked|flat|both]
 
-linked: OUT/linked/<port>/<app>/... (qc/physio-import, events/stim-events, hrv/ecg-hrv,
-bp/bp-resp, responses/stim-dose-response), as a compute node lays out the report's INPUT_DIR;
+linked: OUT/linked/<port>/<app>/... (qc/physio-import with its recordings.csv and channels.csv
+copies, events/stim-events, hrv/ecg-hrv, bp/bp-resp, responses/stim-dose-response), as a compute
+node lays out the report's INPUT_DIR;
 flat: everything side by side at OUT/flat/, with physio-import's physio port (recordings.csv,
 channels.csv, provenance.json) merged at the root.
 """
@@ -135,13 +139,16 @@ def physio_import(physio: Path | None, qc: Path) -> None:
     """physio-import's qc port (qc/physio-import/...) and, when given, its physio port index."""
     recs_prov = {r["recording_id"]: ok(species=r["species"], source=f"lab-export/{r['subject']}/rec.edf")
                  for r in RECS}
-    # As the real app does: an input file that is not a recording, keyed by its path.
-    recs_prov["lab-export/notes.txt"] = skipped("no time column (Time, t, Time (s), ...) and SAMPLING_RATE not set")
     p = prov("physio-import", recs_prov, {"SPECIES": "auto", "FIGURES": "true", "INSPECTOR": "true", "THREADS": "0"},
+             # An input file that is not a recording, as the app lists it.
+             skipped_files={"lab-export/notes.txt": {"status": "skipped", "source_format": "txt", "reason":
+                                                     "no time column (Time, t, Time (s), ...) and SAMPLING_RATE not set"}},
              tools={"pynwb": "4.2.0", "neo": "0.14.6", "wfdb": "4.3.1", "nwbinspector": "0.7.2"},
              inputs=["lab-export/h01/rec.edf", "lab-export/h02/rec.edf", "lab-export/p1/rec.edf"])
-    if physio is not None:
-        wcsv(physio / "recordings.csv",
+    top = qc / "physio-import"
+    # The physio port's index, and its copies in the qc port (recordings.csv, channels.csv).
+    for folder in ([physio] if physio is not None else []) + [top]:
+        wcsv(folder / "recordings.csv",
              ["recording_id", "subject", "session", "label", "path", "species", "start_time", "duration_s",
               "recorded_s", "n_segments", "channel_types", "source_format", "source_path", "metadata_source", "age",
               "sex", "task", "run"],
@@ -155,12 +162,12 @@ def physio_import(physio: Path | None, qc: Path) -> None:
                 cal = "false" if (r["recording_id"] == P1 and t in ("bp", "ecg")) else "true"
                 rows.append([r["recording_id"], t, t, t.upper(), {"ecg": "V", "bp": "mmHg", "hr": "bpm"}.get(t, "a.u."),
                              1000, 1000, cal, 1, "", "name", "good", ""])
-        wcsv(physio / "channels.csv", ["recording_id", "channel", "type", "original_name", "unit", "sampling_rate_hz",
+        wcsv(folder / "channels.csv", ["recording_id", "channel", "type", "original_name", "unit", "sampling_rate_hz",
                                        "n_samples", "calibrated", "scale", "site", "typing", "status",
                                        "status_description"], rows)
+    if physio is not None:
         wcsv(physio / "events.tsv", ["recording_id", "onset", "duration", "trial_type", "label"], [], delimiter="\t")
         wjson(physio / "provenance.json", p)
-    top = qc / "physio-import"
     qrows = []
     for r in RECS:
         for t in r["types"]:
@@ -169,7 +176,9 @@ def physio_import(physio: Path | None, qc: Path) -> None:
             qrows.append([r["recording_id"], t, "status", status,
                           "3.1% of samples stuck at the maximum (300) in runs of 30 samples or more" if status != "good"
                           else ""])
-        qrows.append([r["recording_id"], "", "nwbinspector_messages", 3, "BEST_PRACTICE_SUGGESTION"])
+        qrows.append([r["recording_id"], "", "nwbinspector_messages", 3, "BEST_PRACTICE_SUGGESTION, CRITICAL"])
+        qrows.append([r["recording_id"], "", "nwbinspector_critical_kept", "check_subject_age",
+                      "Subject is missing age and date_of_birth. (missing subject metadata: reported, the recording is kept)"])
     wcsv(top / "qc.csv", ["recording_id", "channel", "check", "value", "note"], qrows)
     wcsv(top / "nwbinspector.csv", ["recording_id", "importance", "check", "object", "message"],
          [[H1, "BEST_PRACTICE_SUGGESTION", "check_description", "Subject subject", "Description is missing."]])
@@ -187,7 +196,8 @@ def physio_import(physio: Path | None, qc: Path) -> None:
                                            "n_channels_flagged": 1 if r["recording_id"] == H1 else 0,
                                            "nwbinspector_messages": 3} for r in RECS},
         "figures": figs,
-        "tables": [{"path": "../../physio/recordings.csv", "caption": "One row per recording."},
+        "tables": [{"path": "recordings.csv", "caption": "One row per recording (copy of the physio port's)."},
+                   {"path": "channels.csv", "caption": "One row per channel (copy of the physio port's)."},
                    {"path": "qc.csv", "caption": "Per-channel checks."},
                    {"path": "nwbinspector.csv", "caption": "NWB Inspector messages."}],
         "warnings": [f"{H1}: bp (BP) saturated: 3.1% of samples stuck at the maximum (300) in runs of 30 samples or "
@@ -332,7 +342,12 @@ def bp_resp(top: Path) -> None:
     wcsv(top / "brs.csv", ["recording_id", "method", "value_ms_per_mmhg", "n", "coherence", "valid", "lag_beats",
                            "rr_source", "note"], brs)
     wcsv(top / "rsa.csv", ["recording_id", "method", "value", "unit", "n_breaths", "note"], rsa)
-    wcsv(top / "qc.csv", ["recording_id", "check", "value", "note"], [[P1, "calibrated", "false", "timing only"]])
+    wcsv(top / "qc.csv", ["recording_id", "check", "value", "note"], [
+        [P1, "calibrated", "false", "timing only"],
+        [H1, "bp_level_steps", 1, "abrupt level changes of the systolic pressure (> 8 mmHg): 76 s (-8 mmHg); absolute "
+                                  "pressure levels are doubtful, beat-to-beat changes (BRS) less affected"],
+        [H1, "bp_drift", 34, "median systolic pressure of the last 2 min minus the first 2 min (mmHg)"],
+        [P1, "ecg_channel_choice", "ecg", "2 ECG channels: the one with the higher signal quality"]])
     wcsv(top / "features.csv", ["recording_id", "channel", "feature", "value"], [[H1, "", "brs_sequence_all", 11.3]])
     wjson(top / "summary.json", {
         "app": "bp-resp", "version": "0.1.0", "recordings": BP, "figures": figs,
@@ -363,15 +378,25 @@ def stim_dose_response(top: Path) -> None:
                      1.0, "p1", "bpm", "ecg-hrv", tr["onset"], 5, "stimulation", "true", "", tr["amplitude"], "uA",
                      500, tr["frequency_hz"]])
         surface.append(["p1", "hr_bpm", tr["amplitude"], tr["frequency_hz"], d, "", 1, "", "stimulation", "bpm", "pig"])
+    # 30 Hz: a Hill fit. 10 Hz: the response changes sign (fulcrum): the monotone fit is blanked.
+    # 2 Hz: a threshold that is only an upper bound. Plus a group with one tested level (no fit).
     for f in FREQS:
-        fitted = f == 30
-        fits.append(["p1", P1, "hr_bpm", "amplitude", "uA", f"frequency_hz={f}", "hill" if fitted else "linear",
-                     500 if fitted else "", "auto: 5% of baseline (3.55 bpm) > 3 SD of baseline (1.2 bpm)",
-                     812.4 if fitted else "", -10.1 if fitted else -1.2, 2.0 if fitted else "", 3.0 if fitted else "",
-                     0.97 if fitted else 0.41, 4, 21.3, "bpm", "stimulation", 4, 1, 3.55, "decrease",
-                     640.2 if fitted else "", 1020.7 if fitted else ""])
+        fitted, blank = f == 30, f == 10
+        fits.append(["p1", P1, "hr_bpm", "amplitude", "uA", f"frequency_hz={f}", "hill" if fitted else
+                     ("none" if blank else "linear"), 500 if fitted else (1000 if f == 2 else ""),
+                     "auto: 5% of baseline (3.55 bpm) > 3 SD of baseline (1.2 bpm)",
+                     812.4 if fitted else "", -10.1 if fitted else ("" if blank else -1.2), 2.0 if fitted else "",
+                     3.0 if fitted else "", 0.97 if fitted else ("" if blank else 0.41), 4, 21.3, "bpm", "stimulation",
+                     4, 1, 3.55, "decrease", 640.2 if fitted else "", 1020.7 if fitted else "",
+                     "upper" if f == 2 else ("bracketed" if fitted else ""),
+                     "the response changes sign along x (fulcrum.csv): the monotone fit's slope, top and EC50 are "
+                     "left empty" if blank else ("threshold is an upper bound: the next lower tested level was not "
+                                                 "analysed or not tested" if f == 2 else "")])
     fits.append(["p1", P1, "rr_ms", "frequency_hz", "Hz", "amplitude=2000", "none", "", "auto", "", "", "", "", "", 3,
-                 "", "ms", "stimulation", 3, 1, 42.0, "", "", ""])
+                 "", "ms", "stimulation", 3, 1, 42.0, "", "", "", "", "no level exceeded the criterion"])
+    fits.append(["p1", P1, "hr_bpm", "pulse_width_us", "us", "amplitude=2000;frequency_hz=30", "none", "", "auto", "", "",
+                 "", "", "", 1, "", "bpm", "stimulation", 1, 1, 3.55, "", "", "", "",
+                 "only one level of x was tested in this group: no fit, no threshold"])
     fulcrum.append(["p1", "hr_bpm", 30, 612.5, "linear interpolation between the bracketing level means", "", "",
                     "frequency_hz=30", P1, "250|500|1000|2000", "1.9|0.6|-5.1|-8.9", "pig",
                     "tachycardia to bradycardia; no CI: one train per level"])
@@ -382,7 +407,7 @@ def stim_dose_response(top: Path) -> None:
     wcsv(top / "fits.csv", ["subject", "recording_id", "variable", "x", "x_unit", "group", "model", "threshold",
                             "threshold_criterion", "ec50", "top", "bottom", "slope", "r2", "n", "aic", "unit",
                             "trial_type", "n_levels", "n_subjects", "criterion_value", "direction", "ec50_ci_low",
-                            "ec50_ci_high"], fits)
+                            "ec50_ci_high", "threshold_bound", "note"], fits)
     wcsv(top / "surface.csv", ["subject", "variable", "amplitude", "frequency_hz", "mean_delta", "sd", "n", "group",
                                "trial_type", "unit", "species"], surface)
     wcsv(top / "fulcrum.csv", ["subject", "variable", "frequency_hz", "amplitude_at_fulcrum", "method", "ci_low",

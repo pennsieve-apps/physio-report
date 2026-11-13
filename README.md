@@ -38,11 +38,17 @@ saying what everything in it is: **research output, not a clinical finding**, an
    - for human recordings, the **published reference values** for healthy adults next to them (below), with
      the caveat that they come from 5-minute supine recordings; none are built in for other species;
    - per subject the **dose-response fits** (parameter varied, the others held fixed, model, threshold and its
-     criterion, EC50 with its confidence interval, maximum change, r², levels) and the **neural fulcrum**, with
-     stim-dose-response's caveat about what the fulcrum means in acute preparations.
+     criterion, EC50 with its confidence interval, maximum change, r², levels, the step's note) and the **neural
+     fulcrum**, with stim-dose-response's caveat about what the fulcrum means in acute preparations. A threshold
+     that is only an upper bound (`threshold_bound=upper`: the next lower level was not tested or not analysed)
+     is shown as "≤"; a fit blanked because the response changes sign says so; groups with one tested level are
+     counted, not listed (they stay in `dose_response.csv`);
+   - bp-resp's pressure checks (level steps, drift, channel status, channel choice) next to the pressures.
 3. One section per linked step, in workflow order, each starting with the step's own **method caveat** (its
    summary.json `notice`) and licence notice: physio-import's signal quality (flagged channels with the reason,
-   uncalibrated channels when the `physio` port is merged in, NWB Inspector messages), stim-events' trains and
+   uncalibrated channels, NWB Inspector messages and the CRITICAL ones kept for missing subject metadata, input
+   files that were not recordings), bp-resp's checks to read before its numbers (pressure level steps and
+   drift, channel status, which channel was chosen when there were several), stim-events' trains and
    parameters, ecg-hrv, bp-resp and stim-dose-response; then every figure the step chose, in its order, with
    **the caption the step wrote** (each says what to look at), its warnings, the recordings it skipped and why,
    the tables it wrote and its parameters.
@@ -53,8 +59,8 @@ saying what everything in it is: **research output, not a clinical finding**, an
 **For a data scientist.** The report reads only the shared contract of `workflow-physiology/docs/conventions.md`:
 each app's top folder `<app>/` (or `<app>/<LABEL>/`) with `provenance.json` and `summary.json` (`recordings`
 keyed by recording id, `figures` `[{path, caption}]`, `tables`, `warnings`, optional `notice`; stim-dose-response's
-`subjects` and `fits.csv`/`fulcrum.csv`), and, when merged in, physio-import's `physio` port index
-(`recordings.csv`, `channels.csv`; the NWB files are never opened). Everything is found by file name and content,
+`subjects` and `fits.csv`/`fulcrum.csv`; bp-resp's `qc.csv` checks), and physio-import's `recordings.csv` and
+`channels.csv` (the copies in its `qc` port, or its `physio` port when merged in; the NWB files are never opened). Everything is found by file name and content,
 recursively, following symlinks: ports in their own folders, everything merged at the input root, or any mix.
 Figure and table paths are taken relative to the app's top folder (paths relative to the port folder are accepted
 too); absolute paths and `..` are never followed. The known apps get curated tables (columns whose keys no
@@ -67,14 +73,13 @@ the steps cite, from Crossref/DataCite/PubMed); a DOI not in it is listed DOI-on
 (the app has no network). A step may give its own reference values as summary.json `reference_ranges`
 (`[{key, species, low, high, unit | text, population, citations}]`); they replace the built-in ones for that
 measure and species. Where a step's output departs from the contract (a figure listed but missing or unreadable,
-no caption, no summary.json, a table path outside the step's folder, a provenance entry keyed by a file path
-instead of a recording id) the report still renders what it can and lists the problem under "Notes on the inputs".
+no caption, no summary.json, a table path outside the step's folder) the report still renders what it can and lists the problem under "Notes on the inputs".
 
 ## Ports
 
 | Port | Direction | Content |
 |---|---|---|
-| `qc` | in (optional) | physio-import's `qc` output: `physio-import/summary.json`, `qc.csv`, `nwbinspector.csv`, overview figures, `provenance.json` (species per recording). |
+| `qc` | in (optional) | physio-import's `qc` output: `physio-import/summary.json`, `recordings.csv` and `channels.csv` (copies of the physio port's), `qc.csv`, `nwbinspector.csv`, overview figures, `provenance.json` (with `skipped_files`). |
 | `events` | in (optional) | stim-events: `stim-events/summary.json`, `events.tsv`, `stim_summary.csv`, `qc.csv`, timeline figures. |
 | `hrv` | in (optional) | ecg-hrv: `ecg-hrv/summary.json`, `hrv.csv`, `beats.csv`, `series.csv`, `qc.csv`, `features.csv`, figures. |
 | `bp` | in (optional) | bp-resp: `bp-resp/summary.json`, `bp_beats.csv`, `breaths.csv`, `brs.csv`, `rsa.csv`, `series.csv`, `qc.csv`, figures. |
@@ -147,12 +152,12 @@ Mac), read-only root, uid 65534, `--memory 2g`, `--network none`, with `scripts/
 
 | Input | Steps linked | Recordings | Figures shown | Wall time | Peak RSS | cgroup memory.peak | PDF |
 |---|---|---|---|---|---|---|---|
-| Discover 349 (stimulation workflow) | all five | 1 | 8 | 2.0 s | 129 MB | 121 MB | 0.7 MB, 17 pages |
-| Discover 655 (stimulation workflow) | all five | 3 | 16 | 2.1 s | 123 MB | 127 MB | 1.5 MB, 18 pages |
-| Autonomic Aging (HRV workflow) | qc, hrv, bp | 3 | 15 | 1.9 s | 126 MB | 130 MB | 1.5 MB, 17 pages |
-| Fantasia (HRV workflow) | qc, hrv, bp | 6 | 28 | 2.6 s | 145 MB | 187 MB | 3.1 MB, 28 pages |
-| Discover 406 (HRV workflow) | qc, hrv, bp | 20 | 60 | 3.6 s | 132 MB | 154 MB | 4.6 MB, 36 pages |
-| Synthetic fixture | all five | 3 | 16 | 1.6 s | 107 MB | 98 MB | 0.3 MB, 17 pages |
+| Discover 349 (stimulation workflow) | all five | 1 | 8 | 2.0 s | 130 MB | 122 MB | 0.7 MB, 17 pages |
+| Discover 655 (stimulation workflow) | all five | 3 | 16 | 2.4 s | 126 MB | 129 MB | 1.3 MB, 18 pages |
+| Autonomic Aging (HRV workflow) | qc, hrv, bp | 3 | 15 | 2.2 s | 126 MB | 129 MB | 1.5 MB, 17 pages |
+| Fantasia (HRV workflow) | qc, hrv, bp | 6 | 28 | 2.9 s | 145 MB | 190 MB | 3.1 MB, 28 pages |
+| Discover 406 (HRV workflow) | qc, hrv, bp | 20 | 60 | 4.1 s | 135 MB | 159 MB | 4.6 MB, 37 pages |
+| Synthetic fixture | all five | 3 | 16 | 1.7 s | 110 MB | 102 MB | 0.3 MB, 18 pages |
 
 Memory grows with the largest figure and the PDF's layout, not with the recordings: the report never opens an NWB
 file. Wall time is the step's own (`provenance.json`); the container adds about half a second. Image: 297 MB, 71 MB
@@ -163,16 +168,16 @@ most of it ecg-hrv's beat-by-beat `beats.csv` and `series.csv` of six 2-hour rec
 
 The report has no method of its own to validate; it was checked on the real outputs of the upstream apps for the
 five demos (the three below, plus Discover 655 and 406), against the apps' own summary.json, and on the synthetic
-fixture (`tests/`, 26 tests, the PDF test in the image):
+fixture (`tests/`, 27 tests, the PDF test in the image):
 
 - **Discover 349** (pig, 20 trains over 50–2500 µA x 2–30 Hz): one recording; physio-import, stim-events (20
   trains, amplitude and frequency varied), ecg-hrv (mean HR 71.25 bpm, SDNN 31.92 ms, device HR mean absolute
   difference 0.83 bpm), bp-resp (skipped: no blood pressure or respiration channel, shown as not analysed, not as a
-  failure) and stim-dose-response (27 fits, 20 with a threshold, none with an EC50; neural fulcrum at 1,751 µA
+  failure) and stim-dose-response (27 fits, 20 with a threshold, 8 of them upper bounds, none with an EC50, 2 blanked because the response changes sign; neural fulcrum at 1,751 µA
   for the ECG heart rate and 1,714 µA for the device heart rate at 30 Hz). No reference values: pig.
 - **Autonomic Aging** (human, calibrated NIBP): three recordings with HRV, pressures and BRS next to the
-  reference values; physio-import's three non-recording files (licence, checksums, subject table) are listed as
-  input files not read, not as recordings.
+  reference values, and bp-resp's level-step and drift checks next to the pressures; physio-import's three
+  non-recording files (licence, checksums, subject table) are listed as input files not read.
 - **Fantasia** (human, 2 h each): six recordings with HRV and RSA; the four f2 records' BP is uncalibrated, so
   bp-resp's notice is shown and the pressure and BRS columns are left out.
 
@@ -186,9 +191,9 @@ DOI the steps cite is in the bundled table (no DOI-only references).
 - Reference values are built in for human adults only, from short supine recordings; they are not comparable
   with whole-recording values from long recordings, with children, with anaesthetised preparations or with
   other species, and the report never flags a recording against them.
-- Without physio-import's `physio` port (not one of the report's ports) the recordings table takes durations,
-  channel types and species from the `qc` output and the steps' provenance; age, sex and which channels are
-  uncalibrated then come only from the steps' notices.
+- With an older physio-import whose `qc` port has no `recordings.csv`/`channels.csv` copies, the recordings table
+  takes durations, channel types and species from its summary, qc.csv and the steps' provenance; age, sex and
+  which channels are uncalibrated then come only from the steps' notices.
 - The key results use the first `LABEL` of an app that is linked more than once.
 - Datasets are credited only when given in `DATASET_DOIS` or recognised from physio-import's source paths
   (the demo datasets).

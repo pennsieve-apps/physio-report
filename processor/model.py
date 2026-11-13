@@ -217,12 +217,6 @@ def channel_type(name: str) -> str:
     return base if base in CHANNEL_TYPES else ""
 
 
-def is_file_key(key: str) -> bool:
-    """A provenance `recordings` key that is a source file path (physio-import lists input files it
-    could not import that way), not a recording id."""
-    return "/" in key or "\\" in key or bool(re.search(r"\.[A-Za-z0-9]{1,5}$", key))
-
-
 def subject_of(rid: str) -> str:
     m = re.match(r"^sub-([A-Za-z0-9-]+)", rid)
     return m.group(1) if m else ""
@@ -270,8 +264,6 @@ def recordings_table(found: Found, steps: list[Step]) -> dict[str, dict[str, Any
                 row(rid)["types"] = ts
     for s in steps:
         for rid, p in prov_recordings(s).items():
-            if is_file_key(rid):
-                continue  # an input file that was not a recording
             e = row(rid)
             if not e["species"] and isinstance(p.get("species"), str):
                 e["species"] = p["species"]
@@ -313,6 +305,8 @@ def qc_section(imp: list[Step], datasets: list[Dataset], rec_rows: dict[str, dic
                     f"{r.get('channel', '')} {r['value']}" + (f" ({r['note']})" if r.get("note") else ""))
             elif r.get("check") == "nwbinspector_messages":
                 d["_inspector_levels"] = r.get("note", "")
+            elif r.get("check") == "nwbinspector_critical_kept":
+                d.setdefault("_critical_kept", []).append(r.get("value") or "")
     uncal: dict[str, list[str]] = {}
     for d in datasets:
         for c in d.channels:
@@ -336,7 +330,9 @@ def qc_section(imp: list[Step], datasets: list[Dataset], rec_rows: dict[str, dic
             "n_flagged": len(flagged) if flagged else int(num(d.get("n_channels_flagged")) or 0),
             "uncalibrated": ", ".join(uncal.get(rid, [])),
             "inspector": fmt(d.get("nwbinspector_messages"), "int")
-            + (f" ({d['_inspector_levels']})" if d.get("_inspector_levels") else ""),
+            + (f" ({d['_inspector_levels']})" if d.get("_inspector_levels") else "")
+            + (f"; CRITICAL kept (missing subject metadata): {', '.join(d['_critical_kept'])}"
+               if d.get("_critical_kept") else ""),
             "trials": fmt(d.get("n_trials"), "int"), "markers": fmt(d.get("n_markers"), "int"),
         })
     return {"rows": rows, "has_uncal": bool(uncal), "n": len(rows),
@@ -413,11 +409,16 @@ def step_warnings(step: Step) -> tuple[list[str], list[dict[str, Any]]]:
         elif status and status not in OK_STATUS:
             text = f"{status}: {reason}" if reason else status
             key = re.sub(r"\d+(\.\d+)?", "#", text)  # reasons that differ only in numbers are one group
-            if is_file_key(rid):
-                key, text = "file:" + key, f"input file not read as a recording ({text})"
             g = skipped.setdefault(key, {"texts": [], "ids": []})
             g["texts"].append(text)
             g["ids"].append(rid)
+    sf = step.provenance.get("skipped_files")
+    for path, r in (sf.items() if isinstance(sf, dict) else []):
+        reason = str((r or {}).get("reason") or (r or {}).get("error") or "").strip() if isinstance(r, dict) else str(r)
+        text = "input file not read as a recording" + (f": {reason}" if reason else "")
+        g = skipped.setdefault("file:" + re.sub(r"\d+(\.\d+)?", "#", text), {"texts": [], "ids": []})
+        g["texts"].append(text)
+        g["ids"].append(str(path))
     groups = [{"reason": g["texts"][0] + (" (and similar)" if len(set(g["texts"])) > 1 else ""), "ids": g["ids"]}
               for g in skipped.values()]
     return out, groups
@@ -614,6 +615,33 @@ REST_BP = [("Calibrated", "calibrated", "bool"), ("SBP (mmHg)", "sbp_mmhg", "num
            ("RSA peak-to-trough (ms)", "rsa_p2t_ms", "num"), ("Breathing rate (/min)", "resp_rate_bpm", "num")]
 
 
+BP_CHECKS = ("bp_level_steps", "bp_drift", "bp_channel_status")
+
+
+def bp_checks(step: Step | None) -> tuple[dict[str, list[str]], list[list[str]]]:
+    """bp-resp's checks a reader must see next to the pressures, from its qc.csv: abrupt level steps,
+    drift of the systolic pressure, channel status, and which channel was chosen when there was a
+    choice. Returns (short flags per recording, table rows [recording, check, value, note])."""
+    flags: dict[str, list[str]] = {}
+    rows: list[list[str]] = []
+    p = find_file(step, "qc.csv") if step is not None else None
+    for r in read_table(p) if p else []:
+        rid, check, value, note = r.get("recording_id", ""), r.get("check", ""), r.get("value", ""), r.get("note", "")
+        if not rid or not (check in BP_CHECKS or check.endswith("_channel_choice")):
+            continue
+        rows.append([rid, check.replace("_", " "), value, note])
+        f = flags.setdefault(rid, [])
+        if check == "bp_level_steps" and num(value):
+            f.append(f"{fmt(value, 'int')} level step{'s' if num(value) != 1 else ''}")
+        elif check == "bp_drift" and num(value) is not None:
+            f.append(f"SBP drift {num(value):+.0f} mmHg")
+        elif check == "bp_channel_status":
+            f.append(f"BP {value}")
+        elif check.endswith("_channel_choice"):
+            f.append(f"{check.split('_')[0]} channel: {value}")
+    return flags, rows
+
+
 def param_name(key: str) -> str:
     """`frequency_hz` as `frequency`, `pulse_width_us` as `pulse width` (the unit is shown apart)."""
     return re.sub(r"_(hz|us|s|ua|ma)$", "", key).replace("_", " ")
@@ -633,6 +661,27 @@ def held_fixed(group: str, amp_unit: str = "") -> str:
         name = param_name(k)
         out.append(f"{name} {v}" + (f" {unit}" if unit else ""))
     return ", ".join(out)
+
+
+NOTE_RULES = [
+    (r"threshold is an upper bound.*", ""),                     # shown as "≤" in the threshold column
+    (r"no level exceeded the criterion", ""),                   # shown as "none reached"
+    (r"the response changes sign along x.*left empty", "fit blanked: the response changes sign (see the fulcrum)"),
+    (r"(\d+) level\(s\) < MIN_LEVELS (\d+): no curve fitted", r"\1 levels (< \2): no curve fitted"),
+]
+
+
+def fit_note(note: str) -> str:
+    """stim-dose-response's `note` for one fit, without what the table already says."""
+    out = []
+    for part in [p.strip() for p in note.split(";") if p.strip()]:
+        for pat, rep in NOTE_RULES:
+            if re.fullmatch(pat, part):
+                part = re.sub(pat, rep, part)
+                break
+        if part and part not in out:
+            out.append(part)
+    return "; ".join(out)
 
 
 def dose_tables(step: Step | None, ev_step: Step | None) -> dict[str, Any] | None:
@@ -681,27 +730,36 @@ def dose_tables(step: Step | None, ev_step: Step | None) -> dict[str, Any] | Non
 
     fits.sort(key=lambda f: (subj_key(str(f.get("subject", ""))), variable_key(str(f.get("variable", ""))),
                              str(f.get("x", "")), natural(str(f.get("group", "")))))
-    rows, raw = [], []
+    rows, raw, shown, n_single, n_upper, n_blanked = [], [], [], 0, 0, 0
     for f in fits:
+        raw.append(f)
+        thr = num(f.get("threshold"))
+        if (thr is None and num(f.get("ec50")) is None and num(f.get("top")) is None
+                and (num(f.get("n_levels")) or 0) < 2):
+            n_single += 1  # a group with one tested level: no fit, no threshold (kept in dose_response.csv)
+            continue
+        shown.append(f)
         u = unit_of(f)
         x = str(f.get("x") or "")
-        thr = num(f.get("threshold"))
+        upper = str(f.get("threshold_bound") or "").lower() == "upper"
+        n_upper += upper
+        note = fit_note(str(f.get("note") or ""))
+        n_blanked += "fit blanked" in note
         rows.append([
             str(f.get("subject") or "–"), variable_name(str(f.get("variable", ""))),
             param_name(x) + (f" ({u})" if u else ""), held_fixed(str(f.get("group") or ""), amp_unit), str(f.get("model") or "–"),
-            fmt(thr) if thr is not None else "none reached",
+            (("≤ " if upper else "") + fmt(thr)) if thr is not None else "none reached",
             (fmt(f.get("ec50")) + ci(f.get("ec50_ci_low"), f.get("ec50_ci_high"))) if num(f.get("ec50")) is not None else "–",
-            fmt(f.get("top")), fmt(f.get("r2")), fmt(f.get("n_levels") or f.get("n"), "int"),
+            fmt(f.get("top")), fmt(f.get("r2")), fmt(f.get("n_levels") or f.get("n"), "int"), note or "–",
             str(f.get("threshold_criterion") or "–"),
         ])
-        raw.append(f)
     fit_table = {"header": ["Subject", "Series", "Parameter varied", "Held fixed", "Model", "Threshold", "EC50 (95 % CI)",
-                            "Maximum change (top)", "r²", "Levels", "Threshold criterion"],
-                 "kinds": ["text", "text", "text", "text", "text", "num", "num", "num", "num", "int", "text"],
-                 "rows": rows, "raw": raw, "criteria": []} if rows else None
+                            "Maximum change (top)", "r²", "Levels", "Note", "Threshold criterion"],
+                 "kinds": ["text", "text", "text", "text", "text", "num", "num", "num", "num", "int", "text", "text"],
+                 "rows": rows, "raw": raw, "criteria": []} if raw else None
     # One criterion per series (the usual case): said once under the table, not on every row.
     by_var: dict[str, set[str]] = {}
-    for f in fits:
+    for f in shown:
         by_var.setdefault(variable_name(str(f.get("variable", ""))), set()).add(str(f.get("threshold_criterion") or "–"))
     if fit_table and all(len(v) == 1 for v in by_var.values()):
         fit_table["criteria"] = [{"series": k, "criterion": next(iter(v))} for k, v in by_var.items()]
@@ -721,6 +779,7 @@ def dose_tables(step: Step | None, ev_step: Step | None) -> dict[str, Any] | Non
     subjects = sorted({str(f.get("subject")) for f in fits + ful if f.get("subject") not in (None, "", "pooled")},
                       key=natural)
     return {"fits": fit_table, "fulcrum": ful_table, "n_fits": len(fits), "n_threshold": n_thr, "n_ec50": n_ec50,
+            "n_single": n_single, "n_upper": n_upper, "n_blanked": n_blanked,
             "subjects": subjects, "pooled": any(str(f.get("subject")) == "pooled" for f in fits)}
 
 
@@ -779,12 +838,6 @@ def build(found: Found, params: dict[str, Any], version: str) -> dict[str, Any]:
     for s in steps:
         for p in s.problems:
             issues.append({"step": s.label, "problem": p})
-        files = [k for k in prov_recordings(s) if is_file_key(k)]
-        if files:
-            issues.append({"step": s.label, "problem": f"provenance.json `recordings` has {len(files)} entr"
-                           f"{'y' if len(files) == 1 else 'ies'} keyed by an input file path, not a recording id "
-                           f"({', '.join(files[:3])}{', ...' if len(files) > 3 else ''}): shown as input files not "
-                           "read, not as recordings"})
 
     rec_rows = recordings_table(found, steps)
     order = sorted(rec_rows, key=natural)
@@ -803,7 +856,7 @@ def build(found: Found, params: dict[str, Any], version: str) -> dict[str, Any]:
     for s in steps:
         short = A.APPS.get(s.app, {}).get("short", s.app) + (f" ({s.label.split('/', 1)[1]})" if "/" in s.label else "")
         skipped = not_analysed(s)
-        for rid in list(recordings_of(s)) + [r for r in prov_recordings(s) if not is_file_key(r)]:
+        for rid in list(recordings_of(s)) + list(prov_recordings(s)):
             if rid in skipped:
                 txt = f"{short}: {skipped[rid]}"
                 if txt not in missing_steps.setdefault(rid, []):
@@ -845,6 +898,17 @@ def build(found: Found, params: dict[str, Any], version: str) -> dict[str, Any]:
         "dose": dose_tables(first_of.get("stim-dose-response"), first_of.get("stim-events")),
         "caveat": A.REFERENCE_CAVEAT,
     }
+    bp_flags, bp_rows = bp_checks(first_of.get("bp-resp"))
+    if key["bp"] is not None and any(bp_flags.values()):
+        key["bp"]["header"].append("Checks (bp-resp qc.csv)")
+        key["bp"]["kinds"].append("text")
+        for row in key["bp"]["rows"]:
+            row.append("; ".join(bp_flags.get(row[0], [])) or "–")
+        key["bp"]["has_checks"] = True
+    for sec in sections:
+        if sec["step"] is first_of.get("bp-resp") and bp_rows:
+            sec["checks"] = {"header": ["Recording", "Check", "Value", "What it means"],
+                             "kinds": ["text", "text", "text", "text"], "rows": bp_rows}
     for k in ("hrv", "bp"):
         if key[k] is not None:
             sec = next(x for x in sections if x["step"] is first_of["ecg-hrv" if k == "hrv" else "bp-resp"])

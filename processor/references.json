@@ -1595,6 +1595,34 @@
     "registry"
    ]
   },
+  "10.1093/biomet/76.2.297": {
+   "doi": "10.1093/biomet/76.2.297",
+   "type": "article",
+   "title": "Regression and time series model selection in small samples",
+   "authors": [
+    {
+     "family": "HURVICH",
+     "given": "CLIFFORD M."
+    },
+    {
+     "family": "TSAI",
+     "given": "CHIH-LING"
+    }
+   ],
+   "journal": "Biometrika",
+   "publisher": "",
+   "year": 1989,
+   "volume": "76",
+   "issue": "2",
+   "pages": "297-307",
+   "pmid": "",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "stim-dose-response"
+   ]
+  },
   "10.1101/2021.02.10.430563": {
    "doi": "10.1101/2021.02.10.430563",
    "type": "article",
@@ -1792,6 +1820,38 @@
    "source": "CITATION.cff",
    "cited_by": [
     "ecg-hrv"
+   ]
+  },
+  "10.1111/j.1469-8986.1990.tb03198.x": {
+   "doi": "10.1111/j.1469-8986.1990.tb03198.x",
+   "type": "article",
+   "title": "A Comparison of Three Quantification Methods for Estimation of Respiratory Sinus Arrhythmia",
+   "authors": [
+    {
+     "family": "Grossman",
+     "given": "P."
+    },
+    {
+     "family": "van Beek",
+     "given": "J."
+    },
+    {
+     "family": "Wientjes",
+     "given": "C."
+    }
+   ],
+   "journal": "Psychophysiology",
+   "publisher": "",
+   "year": 1990,
+   "volume": "27",
+   "issue": "6",
+   "pages": "702-714",
+   "pmid": "2100356",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "bp-resp"
    ]
   },
   "10.1111/j.1540-8159.2010.02841.x": {
@@ -2859,6 +2919,55 @@
    "source": "CITATION.cff",
    "cited_by": [
     "physio-import"
+   ]
+  },
+  "10.3389/fphys.2018.01001": {
+   "doi": "10.3389/fphys.2018.01001",
+   "type": "article",
+   "title": "A Universal Scaling Relation for Defining Power Spectral Bands in Mammalian Heart Rate Variability Analysis",
+   "authors": [
+    {
+     "family": "Behar",
+     "given": "Joachim A."
+    },
+    {
+     "family": "Rosenberg",
+     "given": "Aviv A."
+    },
+    {
+     "family": "Shemla",
+     "given": "Ori"
+    },
+    {
+     "family": "Murphy",
+     "given": "Kevin R."
+    },
+    {
+     "family": "Koren",
+     "given": "Gideon"
+    },
+    {
+     "family": "Billman",
+     "given": "George E."
+    },
+    {
+     "family": "Yaniv",
+     "given": "Yael"
+    }
+   ],
+   "journal": "Frontiers in Physiology",
+   "publisher": "",
+   "year": 2018,
+   "volume": "9",
+   "issue": "",
+   "pages": "1001",
+   "pmid": "30116198",
+   "url": "",
+   "repository": "",
+   "source": "CITATION.cff",
+   "cited_by": [
+    "ecg-hrv",
+    "bp-resp"
    ]
   },
   "10.3389/fphys.2018.01390": {

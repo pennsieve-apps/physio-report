@@ -61,8 +61,8 @@ def test_full_linked_report(linked: Path, tmp_path: Path) -> None:
     assert "ECG, BP, stimulation, device HR" in t
     assert "BP/resp: skipped: no blood pressure or respiration channel" in t
     assert "Stimulation: skipped: no stimulation found" in t
-    # A skipped input file (keyed by path in physio-import's provenance) is not a recording.
-    assert "input file not read as a recording" in t
+    # A skipped input file (physio-import's skipped_files) is not a recording.
+    assert "input file not read as a recording: no time column" in t and "lab-export/notes.txt" in t
     assert not re.search(r"<td>lab-export/notes.txt</td>", page)
     # QC from physio-import: the flagged channel and why.
     assert "1 with at least one flagged channel" in t and "bp saturated (3.1% of samples" in t
@@ -88,9 +88,17 @@ def test_full_linked_report(linked: Path, tmp_path: Path) -> None:
                   "Determinants of Spontaneous Baroreflex Sensitivity", "Quantitative Systematic Review of Normal Values"):
         assert title in t, title
     assert "DOI only" not in t and "Nunan et al. 2010" in t
-    # Research labels and the input note about physio-import's out-of-port table paths.
     assert "Research output, not a clinical finding" in t
-    assert "lists tables outside the app's top folder (../../physio/recordings.csv)" in t
+    assert "Notes on the inputs" not in t  # the fixture follows the contract
+    # Recordings and channels from the qc port's copies: age, uncalibrated channels, CRITICAL kept.
+    assert "as physio-import listed them" in t and "P3M" in t and "Uncalibrated" in t
+    assert "CRITICAL kept (missing subject metadata): check_subject_age" in t
+    # Dose table: an upper-bound threshold, a blanked fit, the one-level group left out.
+    assert "≤ 1,000" in t and "fit blanked: the response changes sign" in t
+    assert "1 group with only one level of the parameter tested" in t
+    # bp-resp's checks next to the pressures and in its section.
+    assert "1 level step; SBP drift +34 mmHg" in t and "Checks to read before the numbers" in t
+    assert "ecg channel: ecg" in t
 
 
 def test_tables_and_json(linked: Path, tmp_path: Path) -> None:
@@ -114,6 +122,8 @@ def test_tables_and_json(linked: Path, tmp_path: Path) -> None:
     assert set(prov) >= {"app", "version", "variant", "tools", "parameters", "inputs", "started", "finished",
                          "wall_seconds", "peak_rss_mb", "threads", "recordings", "citations", "licence_notice"}
     assert summ["steps_not_linked"] == [] and summ["n_unknown_dois"] == 0
+    with open(tab / "dose_response.csv") as fh:
+        assert len(list(csv.DictReader(fh))) == 5  # every fit, the one-level group included
 
 
 def test_flat_layout_with_physio_port(tmp_path: Path) -> None:
@@ -171,6 +181,15 @@ def test_only_qc_port(tmp_path: Path) -> None:
     assert rc == 0
     t = text(page)
     assert "Signal quality per recording" in t and "None of the linked steps has resting heart rate" in t
+
+
+def test_outside_table_paths_are_noted(linked: Path, tmp_path: Path) -> None:
+    p = linked / "qc" / "physio-import" / "summary.json"
+    s = json.loads(p.read_text())
+    s["tables"].append({"path": "../../physio/events.tsv", "caption": "outside"})
+    p.write_text(json.dumps(s))
+    rc, page, _ = run(linked, tmp_path / "out")
+    assert rc == 0 and "lists tables outside the app's top folder (../../physio/events.tsv)" in text(page)
 
 
 def test_one_step_without_qc(tmp_path: Path) -> None:

@@ -191,6 +191,7 @@ there was any. Numbers are copied from the step's summary.</p>
 calibrated pressure channels.</p>
 {% for n in m.key.bp.notices %}<p class="note">{{ n }}</p>{% endfor %}
 {{ table(m.key.bp) }}
+{% if m.key.bp.has_checks %}<p class="note">Checks: an abrupt level step (a finger cuff re-calibrating, a transducer re-zeroed or moved) or a large drift makes the absolute pressures doubtful; beat-to-beat changes and BRS are less affected. A channel named here was chosen among several of that type. Details in the bp-resp section.</p>{% endif %}
 {{ refvalues(m.key.bp) }}
 {% endif %}
 {% if (m.key.hrv and m.key.hrv.refs) or (m.key.bp and m.key.bp.refs) %}<p class="note"><b>About the reference values.</b> {{ m.key.caveat }}</p>{% endif %}
@@ -203,7 +204,8 @@ calibrated pressure channels.</p>
 parameter varied with the others held fixed; the threshold is the lowest level whose response exceeds the threshold
 criterion, the EC50 the level of half the maximum change of a sigmoid fit ("–" when the chosen model is linear or none).</p>
 {% for n in d.notices %}<div class="box resbox"><p>{{ n }}</p></div>{% endfor %}
-{% if d.fits %}{{ table(d.fits) }}
+{% if d.fits %}{% if d.fits.rows %}{{ table(d.fits) }}{% endif %}
+{% if d.n_upper or d.n_blanked or d.n_single %}<p class="note">{% if d.n_upper %}"≤" ({{ d.n_upper }} row{{ 's' if d.n_upper != 1 }}): an upper bound, because the next lower level was not tested or not analysed; the true threshold may be lower. {% endif %}{% if d.n_blanked %}"Fit blanked" ({{ d.n_blanked }}): the response changes sign along the parameter, so stim-dose-response leaves the monotone fit's EC50, maximum and slope empty and gives the crossing in the fulcrum table. {% endif %}{% if d.n_single %}{{ d.n_single }} group{{ 's' if d.n_single != 1 }} with only one level of the parameter tested (no fit, no threshold) {{ 'are' if d.n_single != 1 else 'is' }} left out of this table; <code>tables/dose_response.csv</code> lists every row.{% endif %}</p>{% endif %}
 {% if d.fits.criteria %}<p class="note">Threshold criterion (from fits.csv): {% for c in d.fits.criteria %}{{ c.series }}: {{ c.criterion }}{% if not loop.last %}; {% endif %}{% endfor %}.</p>{% endif %}{% endif %}
 {% if d.fulcrum %}
 <h4>Neural fulcrum</h4>
@@ -240,6 +242,11 @@ al. 2017 define the fulcrum for chronic, duty-cycled vagus nerve stimulation in 
 <tbody>{% for r in q.rows %}<tr><td>{{ r.recording_id }}</td><td class="num">{{ r.duration }}</td><td class="num">{{ r.recorded }}</td><td class="num">{{ r.n_channels }}</td><td>{{ r.types }}</td><td>{{ r.flagged }}</td>{% if q.has_uncal %}<td>{{ r.uncalibrated or '–' }}</td>{% endif %}<td class="num">{{ r.trials }}</td><td class="num">{{ r.markers }}</td><td class="num">{{ r.inspector }}</td></tr>
 {% endfor %}</tbody></table></div>
 <p class="note">Flat: the signal does not change; saturated: stuck at the minimum or maximum (a clipped amplifier or transducer); noisy: no structure from one sample to the next. A flagged ECG or pressure channel can make every later number of that recording unreliable.{% if not q.has_uncal %} Which channels are uncalibrated is in physio-import's <code>channels.csv</code> (its <code>physio</code> output) and in each step's notice.{% endif %}</p>
+{% endif %}
+
+{% if s.checks %}
+<h3>Checks to read before the numbers</h3>
+{{ table(s.checks) }}
 {% endif %}
 
 {% if s.headline %}

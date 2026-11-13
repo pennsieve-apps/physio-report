@@ -232,7 +232,7 @@ def write_tables(model: dict[str, Any], found: Any, out: Path) -> list[str]:
                 except OSError as exc:
                     log.warning("cannot copy table %s: %s", src, exc)
     # physio-import's dataset index tables, when its physio port is linked too.
-    for d in found.datasets:
+    for d in [x for x in found.datasets if not x.in_step]:
         for name in ("recordings.csv", "channels.csv", "events.tsv"):
             src = d.folder / name
             if src.is_file():
