@@ -223,7 +223,7 @@ REFERENCE_VALUES = [
     {"app": "bp-resp", "key": "brs_sequence_all", "species": "human",
      "text": "≈14.0 (age 20), 7.7 (age 40), 4.2 ms/mmHg (age 60)",
      "note": "expected value from ln BRS = 3.24 − 0.03 × age (r² = 0.23: wide spread around it)",
-     "population": "1134 healthy volunteers aged 18–60, sequence method, 10 min Finapres BP and ECG", "dois": KARDOS},
+     "population": "1134 healthy volunteers aged 18–60 (a healthy white population, as the abstract says), sequence method, 10 min Finapres BP and ECG", "dois": KARDOS},
 ]
 REFERENCE_CAVEAT = (
     "Published values for healthy adults, shown for orientation only. They come from short (about 5-minute), mostly "
@@ -231,6 +231,22 @@ REFERENCE_CAVEAT = (
     "length), and the values differ with age, posture, breathing, medication and method. There are no comparable "
     "published values built in for other species: compare animal recordings with your own controls. A value outside "
     "a range is not a clinical finding.")
+
+# ----------------------------------------------------------------------------- tools behind papers
+# A step's CITATION.cff lists a tool that has a paper as an article (NeuroKit2 = Makowski et al.
+# 2021), not as `type: software`; the Acknowledgements and How to cite name the tool behind each
+# such paper the step cites. (DOI, lowercase) -> (tool, repository)
+TOOL_PAPERS = {
+    "10.3758/s13428-020-01516-y": ("NeuroKit2", "https://github.com/neuropsychology/NeuroKit"),
+    "10.3389/fninf.2014.00010": ("Neo", "https://github.com/NeuralEnsemble/python-neo"),
+    "10.7554/elife.78362": ("PyNWB", "https://github.com/NeurodataWithoutBorders/pynwb"),
+    "10.13026/9njx-6322": ("WFDB for Python", "https://github.com/MIT-LCP/wfdb-python"),
+    "10.1038/s41592-019-0686-2": ("SciPy", "https://github.com/scipy/scipy"),
+    "10.25080/majora-92bf1922-011": ("statsmodels", "https://github.com/statsmodels/statsmodels"),
+    "10.1038/s41586-020-2649-2": ("NumPy", "https://github.com/numpy/numpy"),
+    "10.1109/mcse.2007.55": ("Matplotlib", "https://github.com/matplotlib/matplotlib"),
+    "10.25080/majora-92bf1922-00a": ("pandas", "https://github.com/pandas-dev/pandas"),
+}
 
 # ----------------------------------------------------------------------------- datasets
 # Demo datasets: their licence (as conventions.md, the data README and the landing pages give it)

@@ -224,6 +224,30 @@ def subject_of(rid: str) -> str:
 
 # ----------------------------------------------------------------------------- recordings
 
+ASSUMED = re.compile(r"default|unknown|no preset|preset used", re.I)
+
+
+def species_source(step: Step, rid: str) -> str:
+    """Where a step says it got a recording's species (ecg-hrv `species_from`, bp-resp
+    `species_source`, stim-dose-response `windows.<id>.species_source`)."""
+    p = prov_recordings(step).get(rid, {})
+    src = p.get("species_from") or p.get("species_source")
+    if not src:
+        w = step.provenance.get("windows")
+        src = (w.get(rid) or {}).get("species_source") if isinstance(w, dict) and isinstance(w.get(rid), dict) else ""
+    return str(src or "")
+
+
+def species_assumed(step: Step, rid: str) -> bool:
+    return bool(ASSUMED.search(species_source(step, rid)))
+
+
+def species_claim(step: Step, rid: str) -> str:
+    """The species a step's provenance gives for a recording, or "" when the step only assumed it."""
+    sp = prov_recordings(step).get(rid, {}).get("species")
+    return sp if isinstance(sp, str) and sp and not species_assumed(step, rid) else ""
+
+
 def recordings_table(found: Found, steps: list[Step]) -> dict[str, dict[str, Any]]:
     """One entry per recording: physio-import's recordings.csv when its physio port is linked,
     else what its qc output and the other steps say (subject, species, duration, channel types)."""
@@ -262,16 +286,20 @@ def recordings_table(found: Found, steps: list[Step]) -> dict[str, dict[str, Any
         for rid, ts in types.items():
             if not row(rid)["types"]:
                 row(rid)["types"] = ts
-    for s in steps:
+    # Species: recordings.csv first, then physio-import, then the other steps, but never a species a
+    # step only assumed (ecg-hrv "default (human)", bp-resp "species unknown: human preset used",
+    # stim-dose-response "default (no species in the inputs)"): those recordings stay unknown.
+    for s in sorted(steps, key=lambda x: x.app != "physio-import"):
         for rid, p in prov_recordings(s).items():
             e = row(rid)
-            if not e["species"] and isinstance(p.get("species"), str):
-                e["species"] = p["species"]
+            sp = species_claim(s, rid)
+            if not e["species"] and sp:
+                e["species"] = sp
             if not e["subject"] and isinstance(p.get("subject"), (str, int)):
                 e["subject"] = str(p["subject"])
         for rid, r in recordings_of(s).items():
             e = row(rid)
-            if not e["species"] and isinstance(r.get("species"), str):
+            if not e["species"] and isinstance(r.get("species"), str) and not species_assumed(s, rid):
                 e["species"] = r["species"]
             if not e["subject"] and isinstance(r.get("subject"), (str, int)) and str(r.get("subject")):
                 e["subject"] = str(r["subject"])
@@ -594,7 +622,7 @@ def resting_table(step: Step | None, cols: list[tuple[str, str, str]], rec_rows:
     rows = []
     for rid in order + [r for r in recs if r not in order]:
         if rid in recs and not any(row[0] == rid for row in rows):
-            rows.append([rid, _species(rec_rows, rid) or "–"] + [fmt(recs[rid].get(k), kind) for _, k, kind in cols])
+            rows.append([rid, _species(rec_rows, rid) or "unknown"] + [fmt(recs[rid].get(k), kind) for _, k, kind in cols])
     species = {_species(rec_rows, rid) for rid in recs}
     keys = {k for _, k, _ in cols}
     shown = [r for r in refs if r["app"] == step.app and r["key"] in keys and r["species"] in species]
@@ -778,7 +806,7 @@ def dose_tables(step: Step | None, ev_step: Step | None) -> dict[str, Any] | Non
     n_ec50 = sum(1 for f in fits if num(f.get("ec50")) is not None)
     subjects = sorted({str(f.get("subject")) for f in fits + ful if f.get("subject") not in (None, "", "pooled")},
                       key=natural)
-    return {"fits": fit_table, "fulcrum": ful_table, "n_fits": len(fits), "n_threshold": n_thr, "n_ec50": n_ec50,
+    return {"fits": fit_table, "fulcrum": ful_table, "n_fits": len(fits), "n_model": sum(1 for f in fits if str(f.get("model") or "none") != "none"), "n_threshold": n_thr, "n_ec50": n_ec50,
             "n_single": n_single, "n_upper": n_upper, "n_blanked": n_blanked,
             "subjects": subjects, "pooled": any(str(f.get("subject")) == "pooled" for f in fits)}
 
@@ -826,7 +854,7 @@ def build_section(s: Step, rec_rows: dict[str, dict[str, Any]], order: list[str]
         "headline": headline(s.app, recs, order_here),
         "figures": figs[:max_f], "omitted": figs[max_f:], "missing": missing,
         "tables": tables_of(s, issues), "parameters": params_, "tools": tools,
-        "citations": [C.norm(c) for c in as_list(prov.get("citations"))],
+        "citations": as_list(prov.get("citations")),
         "wall_seconds": num(prov.get("wall_seconds")), "peak_rss_mb": num(prov.get("peak_rss_mb")),
         "statuses": dict(statuses), "recs": recs, "step": s,
     }
@@ -867,7 +895,7 @@ def build(found: Found, params: dict[str, Any], version: str) -> dict[str, Any]:
     for rid in order:
         r = rec_rows[rid]
         recordings.append({
-            "recording_id": rid, "subject": r["subject"], "species": r["species"] or "–",
+            "recording_id": rid, "subject": r["subject"], "species": r["species"] or "unknown",
             "duration": fmt(r["duration_s"], "dur"),
             "recorded": fmt(r["recorded_s"], "dur") if r["recorded_s"] is not None and r["duration_s"] is not None
             and r["recorded_s"] < r["duration_s"] - 1 else "",
@@ -930,8 +958,11 @@ def build(found: Found, params: dict[str, Any], version: str) -> dict[str, Any]:
         if not d:
             return None
         if d not in index_of:
+            shown = re.sub(r"^(https?://(dx\.)?doi\.org/|doi:\s*)", "", str(doi).strip(), flags=re.I)
             e = C.entry(d) if C.valid(d) else {"doi": d, "url": "", "known": False, "authors": "", "title": "",
                                                  "where": "", "kind": "unknown", "short": d, "year": ""}
+            if e.get("known") and e["doi"] == e["doi"].lower() and shown.lower() == d and shown != shown.lower():
+                e["doi"] = shown  # DOIs are case-insensitive; show the casing the citing step used
             e["n"] = len(references) + 1
             references.append(e)
             index_of[d] = e["n"]
@@ -978,7 +1009,17 @@ def build(found: Found, params: dict[str, Any], version: str) -> dict[str, Any]:
 
     acknowledgements, cite_steps = [], []
     for sec in sections:
-        sw = C.software_of(sec["app"])
+        sw = []
+        for n in sec["refs"]:
+            tool = A.TOOL_PAPERS.get(C.norm(references[n - 1]["doi"]))
+            if tool and not any(x["title"] == tool[0] for x in sw):
+                sw.append({"title": tool[0], "url": tool[1], "paper": f"{references[n - 1]['short']} [{n}]"})
+        for x in C.software_of(sec["app"]):
+            tool = A.TOOL_PAPERS.get(C.norm(x.get("doi") or ""))
+            if tool:
+                x = {**x, "title": tool[0], "url": tool[1]}
+            if not any(x["title"].lower() in y["title"].lower() or y["title"].lower() in x["title"].lower() for y in sw):
+                sw.append(x)
         if sw and not any(a["app"] == sec["app"] for a in acknowledgements):
             acknowledgements.append({"app": sec["app"], "software": sw})
         works = [{"short": references[n - 1]["short"], "n": n} for n in sec["refs"]]

@@ -88,6 +88,13 @@ def test_full_linked_report(linked: Path, tmp_path: Path) -> None:
                   "Determinants of Spontaneous Baroreflex Sensitivity", "Quantitative Systematic Review of Normal Values"):
         assert title in t, title
     assert "DOI only" not in t and "Nunan et al. 2010" in t
+    assert "doi:10.1109/TAC.1974.1100705" in t  # the citing step's casing, not the record's lowercase
+    assert "parameter groups (rows of fits.csv" in t and "5 parameter groups" in t and "2 with a fitted model" in t
+    # Acknowledgements name the tool behind each cited software paper.
+    ack = t.split("Acknowledgements These analyses")[1].split("How to cite")[0]
+    assert "ecg-hrv : NeuroKit2 (Makowski et al. 2021 [" in ack and "Neo (Garcia et al. 2014 [" in ack
+    assert "Heart rate and heart rate variability : NeuroKit2, WFDB for Python." in t
+    assert "Waveform Database Software Package" not in ack and ack.count("WFDB for Python") == 3
     assert "Research output, not a clinical finding" in t
     assert "Notes on the inputs" not in t  # the fixture follows the contract
     # Recordings and channels from the qc port's copies: age, uncalibrated channels, CRITICAL kept.
@@ -199,6 +206,45 @@ def test_one_step_without_qc(tmp_path: Path) -> None:
     t = text(page)
     assert "as the linked steps describe them" in t and F.P1 in t and "812.4" in t
     assert "Signal quality per recording" not in t
+
+
+def test_assumed_species_is_unknown(linked: Path, tmp_path: Path) -> None:
+    """ecg-hrv writes "human" with species_from "default (human)" when it had no species: the report
+    shows unknown and gives that recording no reference values."""
+    qc = linked / "qc" / "physio-import"
+    for name in ("recordings.csv",):
+        rows = list(csv.DictReader(open(qc / name)))
+        for r in rows:
+            r["species"] = ""
+        with open(qc / name, "w", newline="") as fh:
+            w = csv.DictWriter(fh, fieldnames=list(rows[0]))
+            w.writeheader()
+            w.writerows(rows)
+    for port, app in (("qc", "physio-import"), ("hrv", "ecg-hrv"), ("bp", "bp-resp"), ("events", "stim-events"),
+                      ("responses", "stim-dose-response")):
+        p = linked / port / app / "provenance.json"
+        d = json.loads(p.read_text())
+        for r in d["recordings"].values():
+            r["species"] = "" if app in ("physio-import", "stim-events") else "human"
+            if app == "ecg-hrv":
+                r["species_from"] = "default (human)"
+            elif app == "bp-resp":
+                r["species_source"] = "species unknown: human preset used (set SPECIES)"
+        if app == "stim-dose-response":
+            d["windows"] = {rid: {"species_source": "default (no species in the inputs)"} for rid in d["recordings"]}
+        p.write_text(json.dumps(d))
+    p = linked / "responses" / "stim-dose-response" / "summary.json"
+    d = json.loads(p.read_text())
+    for r in d["recordings"].values():
+        r["species"] = "human"
+    p.write_text(json.dumps(d))
+    rc, page, rep = run(linked, tmp_path / "out")
+    t = text(page)
+    assert rc == 0
+    key = t.split("2. Key results")[1].split("3. Import")[0]
+    assert f"{F.H1} h01 unknown" in t and f"{F.H1} unknown" in key and f"{F.H1} human" not in key
+    assert "32–93 ms" not in t and "Recordings of unknown species get no reference values" in t
+    assert not (rep / "tables" / "reference_values.csv").exists()
 
 
 def test_dose_from_summary_when_tables_missing(linked: Path, tmp_path: Path) -> None:

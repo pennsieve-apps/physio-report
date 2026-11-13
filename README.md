@@ -109,7 +109,7 @@ the first.
 | SDNN | 32–93 ms (mean 50, SD 16) | same, 27 studies | same |
 | RMSSD | 19–75 ms (mean 42, SD 15) | same, 15 studies | same |
 | LF/HF | 1.1–11.6 (mean 2.8, SD 2.6) | same, 25 studies | same |
-| BRS, sequence method | ln BRS = 3.24 − 0.03 × age: ≈14.0, 7.7 and 4.2 ms/mmHg at 20, 40 and 60 years (r² = 0.23) | 1134 healthy volunteers aged 18–60, 10 min Finapres BP and ECG | Kardos et al. 2001, abstract |
+| BRS, sequence method | ln BRS = 3.24 − 0.03 × age: ≈14.0, 7.7 and 4.2 ms/mmHg at 20, 40 and 60 years (r² = 0.23) | 1134 healthy volunteers aged 18–60 ("a healthy white population"), 10 min Finapres BP and ECG | Kardos et al. 2001, abstract |
 
 The numbers were read in the open-access full text of Shaffer & Ginsberg (PMC5624990) and the PubMed abstract of
 Kardos et al. (doi:10.1161/01.HYP.37.3.911, PMID 11244017) on 2026-11-13. They are shown for orientation, never used to flag a recording:
@@ -168,7 +168,7 @@ most of it ecg-hrv's beat-by-beat `beats.csv` and `series.csv` of six 2-hour rec
 
 The report has no method of its own to validate; it was checked on the real outputs of the upstream apps for the
 five demos (the three below, plus Discover 655 and 406), against the apps' own summary.json, and on the synthetic
-fixture (`tests/`, 27 tests, the PDF test in the image):
+fixture (`tests/`, 28 tests, the PDF test in the image):
 
 - **Discover 349** (pig, 20 trains over 50–2500 µA x 2–30 Hz): one recording; physio-import, stim-events (20
   trains, amplitude and frequency varied), ecg-hrv (mean HR 71.25 bpm, SDNN 31.95 ms, device HR mean absolute

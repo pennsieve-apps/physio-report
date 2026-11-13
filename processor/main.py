@@ -159,7 +159,7 @@ def write_tables(model: dict[str, Any], found: Any, out: Path) -> list[str]:
     if recs:
         _write_csv(out / "recordings.csv", ["recording_id", "subject", "species", "duration", "channel_types",
                                             "steps_with_results", "not_analysed"],
-                   [[r["recording_id"], r["subject"], "" if r["species"] == "–" else r["species"], r["duration"],
+                   [[r["recording_id"], r["subject"], "" if r["species"] == "unknown" else r["species"], r["duration"],
                      "|".join(r["type_keys"]), "|".join(r["steps"]), " | ".join(r["not_analysed"])] for r in recs])
         written.append("recordings.csv")
     g = model["glance"]
@@ -198,7 +198,7 @@ def write_tables(model: dict[str, Any], found: Any, out: Path) -> list[str]:
         if key.get(k):
             sec = next(s for s in model["sections"] if s["anchor"] == key[k]["anchor"])
             recs_ = recordings_of(sec["step"])
-            species = {r["recording_id"]: ("" if r["species"] == "–" else r["species"]) for r in recs}
+            species = {r["recording_id"]: ("" if r["species"] == "unknown" else r["species"]) for r in recs}
             _write_csv(out / name, ["recording_id", "species"] + [c[1] for c in cols],
                        [[rid, species.get(rid, "")] + [recs_[rid].get(c[1]) for c in cols] for rid in recs_])
             written.append(name)

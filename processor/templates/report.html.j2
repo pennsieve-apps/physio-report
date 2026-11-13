@@ -72,6 +72,7 @@ nav.toc ol { columns: 2; }
 table { font-size: 7pt; width: 100%; }
 th, td { padding: 1.5pt 3pt; overflow-wrap: break-word; }
 td:first-child { overflow-wrap: anywhere; min-width: 40mm; }
+table.dose td:first-child { min-width: 0; }
 thead { display: table-header-group; }
 tr { break-inside: avoid; }
 figure img { max-height: 225mm; width: auto; max-width: 100%; }
@@ -168,7 +169,9 @@ figures and its warnings. {{ m.sections[0].research if m.sections else '' }}</p>
 <tbody>{% for r in t.refs %}<tr><td>{{ r.label }}</td><td>{{ r.species }}</td><td>{{ r.text }}{% if r.note %} <span class="note">({{ r.note }})</span>{% endif %}</td><td>{{ r.population }}</td><td>{{ r.n|refs }}{% if r.from_step %} <span class="note">(given by {{ r.from_step }})</span>{% endif %}</td></tr>
 {% endfor %}</tbody></table></div>
 {% endif %}
-{% if t.no_ref_species %}<p class="note">No published reference values are built in for {{ t.no_ref_species|join(', ') }} recordings: compare them with your own controls.</p>{% endif %}
+{% set known = t.no_ref_species|reject('equalto', 'unknown')|list %}
+{% if known %}<p class="note">No published reference values are built in for {{ known|join(', ') }} recordings: compare them with your own controls.</p>{% endif %}
+{% if 'unknown' in t.no_ref_species %}<p class="note">Recordings of unknown species get no reference values: give the species to physio-import (its <code>SPECIES</code> parameter, a <code>recordings-map.csv</code> or the source's subject metadata). A step that fell back to its human preset is not taken as saying the subject is human.</p>{% endif %}
 {%- endmacro -%}
 
 <section id="key">
@@ -198,20 +201,20 @@ calibrated pressure channels.</p>
 {% if m.key.dose %}
 {% set d = m.key.dose %}
 <h3>Thresholds, EC50 and neural fulcrum</h3>
-<p>From stim-dose-response (<a href="#{{ d.anchor }}">section</a>): {{ d.n_fits }} fit{{ 's' if d.n_fits != 1 }}
-({{ d.subjects|length }} subject{{ 's' if d.subjects|length != 1 }}{% if d.pooled %}, plus pooled fits{% endif %}),
-{{ d.n_threshold }} with a threshold reached and {{ d.n_ec50 }} with an EC50. One row per subject, series and
+<p>From stim-dose-response (<a href="#{{ d.anchor }}">section</a>): {{ d.n_fits }} parameter group{{ 's' if d.n_fits != 1 }} (rows of fits.csv;
+{{ d.subjects|length }} subject{{ 's' if d.subjects|length != 1 }}{% if d.pooled %}, plus pooled rows{% endif %}):
+{{ d.n_model }} with a fitted model (Hill, Boltzmann or linear), {{ d.n_threshold }} with a threshold reached and {{ d.n_ec50 }} with an EC50. One row per subject, series and
 parameter varied with the others held fixed; the threshold is the lowest level whose response exceeds the threshold
 criterion, the EC50 the level of half the maximum change of a sigmoid fit ("–" when the chosen model is linear or none).</p>
 {% for n in d.notices %}<div class="box resbox"><p>{{ n }}</p></div>{% endfor %}
-{% if d.fits %}{% if d.fits.rows %}{{ table(d.fits) }}{% endif %}
+{% if d.fits %}{% if d.fits.rows %}{{ table(d.fits, "dose") }}{% endif %}
 {% if d.n_upper or d.n_blanked or d.n_single %}<p class="note">{% if d.n_upper %}"≤" ({{ d.n_upper }} row{{ 's' if d.n_upper != 1 }}): an upper bound, because the next lower level was not tested or not analysed; the true threshold may be lower. {% endif %}{% if d.n_blanked %}"Fit blanked" ({{ d.n_blanked }}): the response changes sign along the parameter, so stim-dose-response leaves the monotone fit's EC50, maximum and slope empty and gives the crossing in the fulcrum table. {% endif %}{% if d.n_single %}{{ d.n_single }} group{{ 's' if d.n_single != 1 }} with fewer than two levels of the parameter analysed (only one tested, or the other levels without usable trains: no fit, no threshold) {{ 'are' if d.n_single != 1 else 'is' }} left out of this table; <code>tables/dose_response.csv</code> lists every row.{% endif %}</p>{% endif %}
 {% if d.fits.criteria %}<p class="note">Threshold criterion (from fits.csv): {% for c in d.fits.criteria %}{{ c.series }}: {{ c.criterion }}{% if not loop.last %}; {% endif %}{% endfor %}.</p>{% endif %}{% endif %}
 {% if d.fulcrum %}
 <h4>Neural fulcrum</h4>
 <p class="note">The amplitude where the heart-rate response to the trains changes sign at a fixed frequency (Ardell et
 al. 2017 define the fulcrum for chronic, duty-cycled vagus nerve stimulation in conscious animals; read the notice above).</p>
-{{ table(d.fulcrum) }}
+{{ table(d.fulcrum, "dose") }}
 {% endif %}
 {% endif %}
 </section>
@@ -324,7 +327,7 @@ DataCite and PubMed.</p>
 <p>These analyses package other people's methods, and the credit for them is theirs. Pennsieve packaged the methods
 as platform apps; it did not develop them.{% if m.acknowledgements %} The steps in this report are built on:{% endif %}</p>
 {% if m.acknowledgements %}<ul>
-{% for a in m.acknowledgements %}<li><b>{{ a.app }}</b>: {% for sw in a.software %}{% if sw.url %}<a href="{{ sw.url }}">{{ sw.title }}</a>{% else %}{{ sw.title }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}</li>
+{% for a in m.acknowledgements %}<li><b>{{ a.app }}</b>: {% for sw in a.software %}{% if sw.url %}<a href="{{ sw.url }}">{{ sw.title }}</a>{% else %}{{ sw.title }}{% endif %}{% if sw.paper %} ({{ sw.paper }}){% endif %}{% if not loop.last %}, {% endif %}{% endfor %}</li>
 {% endfor %}</ul>{% endif %}
 <p>The report is rendered with Jinja (Pallets), WeasyPrint (CourtBouillon) and Pillow.</p>
 {% if m.datasets %}
